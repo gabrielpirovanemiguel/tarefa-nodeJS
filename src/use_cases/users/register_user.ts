@@ -1,8 +1,9 @@
 import type { User } from '@/@types/prisma/client.js'
-import {USER_ROLE} from '@/@types/prisma/client.js'
+import { USER_ROLE } from '@/@types/prisma/client.js'
 import { env } from '@/env/index.js'
 import { hash } from 'bcryptjs'
 import type { UsersRepository } from '@/repositories/users_repository.js'
+import { EmailAlreadyInUse } from '../errors/email_already_in_use.js'
 // import { UserAlreadyExistsError } from '../errors/user-already-exists-error.js'
 
 interface RegisterUserUseCaseRequest {
@@ -25,15 +26,25 @@ export class RegisterUserUseCase {
         password,
         role
     }: RegisterUserUseCaseRequest): Promise<RegisterUserUseCaseResponse> {
-        const passwordHash = await hash(password, env.HASH_SALT_ROUNDS)
 
-        const user = await this.usersRepository.create({
-            email,
-            name,
-            passwordHash,
-            role
-        })
+        try {
+            const userWithSameEmail = await this.usersRepository.findByEmail(email);
 
-        return{user}
+            if (userWithSameEmail) {throw new EmailAlreadyInUse()}
+
+            const passwordHash = await hash(password, env.HASH_SALT_ROUNDS)
+
+            const user = await this.usersRepository.create({
+                email,
+                name,
+                passwordHash,
+                role
+            })
+
+            return { user }
+        } catch(error) {
+            throw error
+        }
+
     }
 }

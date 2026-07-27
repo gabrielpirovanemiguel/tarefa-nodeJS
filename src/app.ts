@@ -1,8 +1,14 @@
 import Fastify from 'fastify'
 import { appRoutes } from './http/routes.js'
 import z, { ZodError } from 'zod'
+import fastifyJwt from '@fastify/jwt'
+import { env } from './env/index.js'
 
 export const app = Fastify({ logger: true })
+
+app.register(fastifyJwt, {
+  secret: env.JWT_SECRET,
+})
 
 app.get('/health', async (request, reply) => {
   return reply.status(200).send({ status: 'ok' })

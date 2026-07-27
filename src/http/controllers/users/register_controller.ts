@@ -1,17 +1,19 @@
 import type { FastifyReply, FastifyRequest } from 'fastify'
+import { USER_ROLE } from '@/@types/prisma/client.js'
 import z from 'zod'
 // import { UserAlreadyExistsError } from '@/use-cases/errors/user-already-exists-error.js'
 import { makeRegisterUserUseCase } from '@/use_cases/factories/make_register_user.js'
-// import { UserPresenter } from '@/http/presenters/users-presenter.js'
+import { UserPresenter } from '@/http/presenters/users_presenter.js'
 
 export async function register(request: FastifyRequest, reply: FastifyReply) {
     const registerBodySchema = z.object({
         name: z.string().trim().min(1).max(100),
         email: z.email().trim().min(1).max(100),
         password: z.string().trim().min(8).max(100),
+        role: z.enum(USER_ROLE).optional().default("user")
     })
 
-    const { name, email, password } = registerBodySchema.parse(
+    const { name, email, password, role } = registerBodySchema.parse(
         request.body,
     )
 
@@ -20,7 +22,8 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
         name,
         email,
         password,
+        role
     })
 
-    return reply.status(201).send({ user })
+    return reply.status(201).send({ user: UserPresenter.toHTTP(user)})
 }

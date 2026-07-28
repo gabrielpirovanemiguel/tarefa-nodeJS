@@ -6,7 +6,7 @@ type ListUsersUseCaseResponse = {
 }
 
 export class ListUsersUseCase {
-    constructor(private usersRepository: UsersRepository) { }
+    constructor(private usersRepository: UsersRepository) {}
 
     async execute(): Promise<ListUsersUseCaseResponse> {
         const users = await this.usersRepository.list()

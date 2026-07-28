@@ -6,12 +6,12 @@ import { UserPresenter } from '@/http/presenters/users_presenter.js'
 
 const authenticateSchema = z.object({
     email: z.email().trim().min(1),
-    password: z.string().min(1)
+    password: z.string().min(1),
 })
 
 export async function authenticate(
     request: FastifyRequest,
-    reply: FastifyReply
+    reply: FastifyReply,
 ) {
     try {
         const { email, password } = authenticateSchema.parse(request.body)
@@ -21,10 +21,12 @@ export async function authenticate(
 
         const token = await reply.jwtSign(
             { sub: user.publicId, role: user.role },
-            { expiresIn: '1d' }
+            { expiresIn: '1d' },
         )
 
-        return reply.status(200).send({ token, user: UserPresenter.toHTTP(user) })
+        return reply
+            .status(200)
+            .send({ token, user: UserPresenter.toHTTP(user) })
     } catch (error) {
         if (error instanceof InvalidCredentialsError) {
             return reply.status(400).send({ message: error.message })
@@ -33,5 +35,3 @@ export async function authenticate(
         throw error
     }
 }
-
-

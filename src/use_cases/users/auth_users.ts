@@ -13,13 +13,12 @@ type AuthUserUseCaseResponse = {
 }
 
 export class AuthUserUseCase {
-    constructor(private usersRepository: UsersRepository) { }
+    constructor(private usersRepository: UsersRepository) {}
 
     async execute({
         email,
-        password
+        password,
     }: AuthUserUseCaseRequest): Promise<AuthUserUseCaseResponse> {
-
         const user = await this.usersRepository.findByEmail(email)
         if (!user) throw new InvalidCredentialsError()
 
@@ -28,6 +27,5 @@ export class AuthUserUseCase {
         if (!doesPasswordMatch) throw new InvalidCredentialsError()
 
         return { user }
-
     }
 }

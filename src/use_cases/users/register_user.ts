@@ -17,19 +17,21 @@ type RegisterUserUseCaseResponse = {
 }
 
 export class RegisterUserUseCase {
-    constructor(private usersRepository: UsersRepository) { }
+    constructor(private usersRepository: UsersRepository) {}
 
     async execute({
         name,
         email,
         password,
-        role
+        role,
     }: RegisterUserUseCaseRequest): Promise<RegisterUserUseCaseResponse> {
-
         try {
-            const userWithSameEmail = await this.usersRepository.findByEmail(email);
+            const userWithSameEmail =
+                await this.usersRepository.findByEmail(email)
 
-            if (userWithSameEmail) {throw new EmailAlreadyInUse()}
+            if (userWithSameEmail) {
+                throw new EmailAlreadyInUse()
+            }
 
             const passwordHash = await hash(password, env.HASH_SALT_ROUNDS)
 
@@ -37,13 +39,12 @@ export class RegisterUserUseCase {
                 email,
                 name,
                 passwordHash,
-                role
+                role,
             })
 
             return { user }
-        } catch(error) {
+        } catch (error) {
             throw error
         }
-
     }
 }

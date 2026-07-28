@@ -80,7 +80,7 @@ model TaskUser {
   userId Int @map("user_id")
 
   task Task @relation(fields: [taskId], references: [id])
-  user User @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   assignedAt DateTime  @default(now()) @map("assigned_at")
 

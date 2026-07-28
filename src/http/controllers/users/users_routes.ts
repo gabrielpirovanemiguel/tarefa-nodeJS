@@ -19,5 +19,5 @@ export async function usersRoutes(app: FastifyInstance) {
         {onRequest: [verifyJwt, verifyUserIdOrRole(['admin'])]}, 
         updateUser
     )
-    app.delete('/delete/:publicId', {onRequest: [verifyJwt, verifyUserIdOrRole(['admin'])]}, deleteUser)
+    app.delete('/:publicId', {onRequest: [verifyJwt, verifyUserIdOrRole(['admin'])]}, deleteUser)
 }

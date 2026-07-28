@@ -15,7 +15,7 @@ export async function deleteUser(
         const deleteUserCase = makeDeleteUserUseCase()
         await deleteUserCase.execute({ publicId })
 
-        return reply.status(204)
+        return reply.status(204).send()
     } catch (error) {
         if (error instanceof UserNotFound) {
             return reply.status(404).send({ message: error.message })

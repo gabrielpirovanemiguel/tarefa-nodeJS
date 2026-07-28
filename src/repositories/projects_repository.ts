@@ -1,0 +1,6 @@
+import type { Prisma, Project } from "@/@types/prisma/client.js";
+
+
+export interface ProjectsRepository {
+    createProject(data: Prisma.ProjectCreateInput): Promise<Project>
+}

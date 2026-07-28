@@ -1,0 +1,35 @@
+import type { Project } from "@/@types/prisma/client.js"
+import type { STATUS } from "@/@types/prisma/enums.js"
+import type { ProjectsRepository } from "@/repositories/projects_repository.js"
+
+interface RegisterProjectUseCaseRequest {
+    name: string
+    description?: string
+    status: STATUS
+}
+
+type RegisterProjectUseCaseResponse = {
+    project: Project
+}
+
+export class RegisterProjectUseCase {
+    constructor(private projectsRepository: ProjectsRepository) { }
+    async execute({
+        name,
+        description,
+        status
+    }: RegisterProjectUseCaseRequest): Promise<RegisterProjectUseCaseResponse> {
+        try {
+            const project = await this.projectsRepository.createProject({
+                name,
+                description,
+                status
+            })
+            return { project }
+        } catch (error) {
+            throw error
+        }
+        
+    }
+
+}

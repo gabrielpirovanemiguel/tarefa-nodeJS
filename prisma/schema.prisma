@@ -30,11 +30,11 @@ enum PRIORITY {
 }
 
 model Project {
-  id  Int @id @default(autoincrement())
-  publicId String @unique @default(uuid(7)) @map("public_id")
-  name String
-  description String?
-  status STATUS
+  id           Int       @id @default(autoincrement())
+  publicId     String    @unique @default(uuid(7)) @map("public_id")
+  name         String
+  description  String?
+  status       STATUS    @default(active)
 
   task Task[]
 

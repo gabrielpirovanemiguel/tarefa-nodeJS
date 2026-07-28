@@ -28,6 +28,10 @@ export async function updateUser(
     } catch (error) {
         if (error instanceof UserNotFound) {
             return reply.status(404).send({ message: error.message })
+        } else if (error instanceof z.ZodError) {
+            return reply.status(400).send({
+                message: 'Nome ou senha inválidos.',
+            })
         }
         throw error
     }

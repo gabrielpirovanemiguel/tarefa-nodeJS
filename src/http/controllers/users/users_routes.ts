@@ -5,7 +5,8 @@ import { listUsers } from './list_users_controller.js'
 import { verifyJwt } from '@/http/middlewares/verify_jwt.js'
 import { getUserById } from './get_by_id_controller.js'
 import { updateUser } from './update_controller.js'
-import { verifyUserRole } from '@/http/middlewares/verify_user_role.js'
+import { verifyUserIdOrRole } from '@/http/middlewares/verify_user_id_or_role.js'
+
 
 export async function usersRoutes(app: FastifyInstance) {
     app.post('/register', register)
@@ -16,7 +17,7 @@ export async function usersRoutes(app: FastifyInstance) {
 
     app.put(
         '/update/:publicId', 
-        {onRequest: [verifyJwt, verifyUserRole(['admin', 'user'])]}, 
+        {onRequest: [verifyJwt, verifyUserIdOrRole(['admin'])]}, 
         updateUser
     )
 }

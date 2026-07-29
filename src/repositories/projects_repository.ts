@@ -5,4 +5,5 @@ export interface ProjectsRepository {
     listProjects(): Promise<Project[]>
     getProjectById(publicId: string): Promise<Project | null>
     updateProject(publicId: string, data: Prisma.ProjectUpdateInput): Promise<Project>
+    deleteProject(publicId: string): Promise<void>
 }

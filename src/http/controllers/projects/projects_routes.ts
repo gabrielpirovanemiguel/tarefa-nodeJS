@@ -6,6 +6,7 @@ import { USER_ROLE } from '@/@types/prisma/enums.js'
 import { listProjects } from './list_projects_controller.js'
 import { getProjectById } from './get_project_by_id_controller.js'
 import { updateProject } from './update_project_controller.js'
+import { deleteProject } from './delete_project_controller.js'
 
 export function projectsRoutes(app: FastifyInstance) {
     app.post(
@@ -19,5 +20,10 @@ export function projectsRoutes(app: FastifyInstance) {
         '/:publicId',
         { onRequest: [verifyJwt, verifyUserIdOrRole([USER_ROLE.admin])] },
         updateProject
+    )
+    app.delete(
+        '/:publicId',
+        { onRequest: [verifyJwt, verifyUserIdOrRole([USER_ROLE.admin])] },
+        deleteProject,
     )
 }

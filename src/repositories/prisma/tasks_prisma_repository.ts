@@ -11,11 +11,20 @@ export class PrismaTasksRepository implements TasksRepository {
         })
     }
 
-    async countByProjectId(projectId: number): Promise<number> {
+    async countByProjectId(projectId: number) {
         return await prisma.task.count({
             where: {
                 projectId
             }
+        })
+    }
+
+    async getTaskById(publicId: string) {
+        return await prisma.task.findUnique({
+            where: {
+                publicId
+            },
+            include: taskWithUsersInclude
         })
     }
 }

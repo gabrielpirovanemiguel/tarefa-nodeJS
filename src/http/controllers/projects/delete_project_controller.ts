@@ -1,6 +1,6 @@
 import { ProjectHasAssociatedTasksError } from '@/use_cases/errors/project_has_tasks_error.js'
 import { ProjectNotFound } from '@/use_cases/errors/project_not_found.js'
-import { makeDeleteProjectUseCase } from '@/use_cases/factories/projects/male_delete_project.js'
+import { makeDeleteProjectUseCase } from '@/use_cases/factories/projects/make_delete_project.js'
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import z from 'zod'
 

@@ -11,4 +11,10 @@ export class PrismaProjectsRepository implements ProjectsRepository {
     async listProjects(): Promise<Project[]> {
         return await prisma.project.findMany()
     }
+
+    async getProjectById(publicId: string): Promise<Project | null> {
+        return await prisma.project.findUnique({
+            where: { publicId }
+        })
+    }
 }

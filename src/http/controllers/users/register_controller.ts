@@ -1,7 +1,7 @@
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import { USER_ROLE } from '@/@types/prisma/client.js'
 import z from 'zod'
-import { makeRegisterUserUseCase } from '@/use_cases/factories/make_register_user.js'
+import { makeRegisterUserUseCase } from '@/use_cases/factories/users/make_register_user.js'
 import { UserPresenter } from '@/http/presenters/users_presenter.js'
 import { EmailAlreadyInUse } from '@/use_cases/errors/email_already_in_use_error.js'
 

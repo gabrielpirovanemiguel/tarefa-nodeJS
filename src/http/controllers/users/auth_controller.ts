@@ -1,5 +1,5 @@
 import type { FastifyReply, FastifyRequest } from 'fastify'
-import { makeAuthUserUseCase } from '@/use_cases/factories/make_auth_user.js'
+import { makeAuthUserUseCase } from '@/use_cases/factories/users/make_auth_user.js'
 import { z } from 'zod'
 import { InvalidCredentialsError } from '@/use_cases/errors/invalid_credentials_error.js'
 import { UserPresenter } from '@/http/presenters/users_presenter.js'

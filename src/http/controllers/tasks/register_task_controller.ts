@@ -1,4 +1,5 @@
 import { PRIORITY } from '@/@types/prisma/enums.js'
+import { TaskPresenter } from '@/http/presenters/tasks_presenters.js'
 import { ProjectNotFound } from '@/use_cases/errors/project_not_found.js'
 import { makeRegisterTaskUseCase } from '@/use_cases/factories/tasks/make_register_task.js'
 import type { FastifyReply, FastifyRequest } from 'fastify'
@@ -29,9 +30,9 @@ export async function registerTask(
             priority,
             completed,
             deadline,
-            project,
+            project
         })
-        reply.status(201).send({ task })
+        reply.status(201).send({ task: TaskPresenter.toHTTP(task) })
     } catch (error) {
         if (error instanceof z.ZodError) {
             return reply.status(400).send(z.treeifyError(error))

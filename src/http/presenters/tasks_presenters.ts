@@ -1,4 +1,8 @@
-import type { PRIORITY, PRIORITY, Project, STATUS } from '@/@types/prisma/client.js'
+import type { PRIORITY } from '@/@types/prisma/client.js'
+import type { TaskWithUsers } from '@/repositories/tasks_repository.js'
+
+
+
 
 type HTTPTask = {
     id: string
@@ -10,23 +14,38 @@ type HTTPTask = {
     completed: boolean
     createdAt: Date
     updatedAt: Date
+    assignedUsers: {
+        id: number
+        name: string
+        email: string
+        role: string
+    }[]
 }
 
 export class TaskPresenter {
-    static toHTTP(project: Project): HTTPProject
-    static toHTTP(projects: Project[]): HTTPProject[]
-    static toHTTP(input: Project | Project[]): HTTPProject | HTTPProject[] {
+    static toHTTP(task: TaskWithUsers): HTTPTask
+    static toHTTP(tasks: TaskWithUsers[]): HTTPTask[]
+    static toHTTP(input: TaskWithUsers | TaskWithUsers[]): HTTPTask | HTTPTask[] {
         if (Array.isArray(input)) {
             return input.map((p) => this.toHTTP(p))
         }
 
         return {
             id: input.publicId,
-            name: input.name,
+            title: input.title,
             description: input.description,
-            status: input.status,
+            priority: input.priority,
+            completed: input.completed,
+            deadline: input.deadline,
+            project: input.projectId,
             createdAt: input.createdAt,
             updatedAt: input.updatedAt,
+            assignedUsers: input.taskUser.map((tu) => ({
+                id: tu.user.id,
+                name: tu.user.name,
+                email: tu.user.email,
+                role: tu.user.role
+            }))
         }
     }
 }

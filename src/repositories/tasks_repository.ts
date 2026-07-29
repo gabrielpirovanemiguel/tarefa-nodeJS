@@ -1,5 +1,22 @@
-import type { Prisma, Task } from "@/@types/prisma/client.js";
+import type { Prisma } from "@/@types/prisma/client.js";
 
+
+export const taskWithUsersInclude = {
+    taskUser: {
+        include: {
+            user: {
+                select: {
+                    id: true,
+                    name: true,
+                    email: true,
+                    role: true
+                }
+            }
+        }
+    }
+} satisfies Prisma.TaskInclude
+
+export type TaskWithUsers = Prisma.TaskGetPayload<{ include: typeof taskWithUsersInclude }>
 export interface TasksRepository {
-    createTask(data: Prisma.TaskCreateInput): Promise<Task>
+    createTask(data: Prisma.TaskUncheckedCreateInput): Promise<TaskWithUsers>
 }

@@ -1,7 +1,6 @@
-import type { Task } from '@/@types/prisma/client.js'
 import type { PRIORITY } from '@/@types/prisma/enums.js'
 import type { ProjectsRepository } from '@/repositories/projects_repository.js'
-import type { TasksRepository } from '@/repositories/tasks_repository.js'
+import type { TasksRepository, TaskWithUsers } from '@/repositories/tasks_repository.js'
 import { ProjectNotFound } from '../errors/project_not_found.js'
 
 interface RegisterTaskUseCaseRequest {
@@ -14,7 +13,7 @@ interface RegisterTaskUseCaseRequest {
 }
 
 type RegisterTaskUseCaseResponse = {
-    task: Task
+    task: TaskWithUsers
 }
 
 export class RegisterTaskUseCase {
@@ -40,9 +39,7 @@ export class RegisterTaskUseCase {
                 priority,
                 completed,
                 deadline,
-                project: {
-                    connect: {id: projectId}
-                }
+                projectId
             })
             return { task }
         } catch (error) {

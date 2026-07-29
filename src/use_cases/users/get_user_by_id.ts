@@ -13,7 +13,7 @@ type getUserByIdResponse = {
 export class GetByIdUseCase {
     constructor(private userRepository: UsersRepository) {}
     async execute({
-        publicId
+        publicId,
     }: getUserByIdRequest): Promise<getUserByIdResponse> {
         try {
             const user = await this.userRepository.getUserById(publicId)

@@ -17,15 +17,24 @@ type UpdateUserUseCaseResponse = {
 export class UpdateUserUseCase {
     constructor(private usersRepository: UsersRepository) {}
 
-    async execute({publicId, name, password}: UpdateUserUseCaseRequest): Promise<UpdateUserUseCaseResponse> {
+    async execute({
+        publicId,
+        name,
+        password,
+    }: UpdateUserUseCaseRequest): Promise<UpdateUserUseCaseResponse> {
         try {
-            const userToUpdate = await this.usersRepository.getUserById(publicId)
-            if(!userToUpdate) throw new UserNotFound()
+            const userToUpdate =
+                await this.usersRepository.getUserById(publicId)
+            if (!userToUpdate) throw new UserNotFound()
 
-            let passwordHash;
-            if (password) passwordHash = await hash(password, env.HASH_SALT_ROUNDS)
+            let passwordHash
+            if (password)
+                passwordHash = await hash(password, env.HASH_SALT_ROUNDS)
 
-            const user = await this.usersRepository.updateUser(userToUpdate.publicId, {name, passwordHash})
+            const user = await this.usersRepository.updateUser(
+                userToUpdate.publicId,
+                { name, passwordHash },
+            )
 
             return { user }
         } catch (error) {

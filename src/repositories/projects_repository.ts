@@ -4,4 +4,5 @@ export interface ProjectsRepository {
     createProject(data: Prisma.ProjectCreateInput): Promise<Project>
     listProjects(): Promise<Project[]>
     getProjectById(publicId: string): Promise<Project | null>
+    updateProject(publicId: string, data: Prisma.ProjectUpdateInput): Promise<Project>
 }

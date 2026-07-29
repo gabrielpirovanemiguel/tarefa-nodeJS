@@ -16,4 +16,11 @@ export class PrismaProjectsRepository implements ProjectsRepository {
             where: { publicId },
         })
     }
+
+    async updateProject(publicId: string, data: Prisma.ProjectUpdateInput): Promise<Project> {
+        return await prisma.project.update({
+            where: { publicId },
+            data,
+        })
+    }
 }

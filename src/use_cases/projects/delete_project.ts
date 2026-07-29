@@ -1,7 +1,7 @@
 import type { ProjectsRepository } from "@/repositories/projects_repository.js"
 import { ProjectNotFound } from "../errors/project_not_found.js"
-import { Prisma } from "@/@types/prisma/client.js"
 import { ProjectHasAssociatedTasksError } from "../errors/project_has_tasks_error.js"
+import type { TasksRepository } from "@/repositories/tasks_repository.js"
 
 
 interface deleteProjectRequest {
@@ -9,19 +9,19 @@ interface deleteProjectRequest {
 }
 
 export class DeleteProjectUseCase {
-    constructor(private projectRepository: ProjectsRepository) { }
+    constructor(private projectRepository: ProjectsRepository,
+                private tasksRepository: TasksRepository
+    ) { }
     async execute({ publicId }: deleteProjectRequest): Promise<void> {
         try {
             const projectToDelete = await this.projectRepository.getProjectById(publicId)
             if (!projectToDelete) throw new ProjectNotFound()
+
+            const taskCount = await this.tasksRepository.countByProjectId(projectToDelete.id)
+            if (taskCount > 0) throw new ProjectHasAssociatedTasksError()
+
             await this.projectRepository.deleteProject(publicId)
         } catch (error) {
-            if (
-                error instanceof Prisma.PrismaClientKnownRequestError  &&
-                error.code === 'P2003'
-            ) {
-                throw new ProjectHasAssociatedTasksError()
-            }
             throw error
         }
     }

@@ -19,4 +19,5 @@ export const taskWithUsersInclude = {
 export type TaskWithUsers = Prisma.TaskGetPayload<{ include: typeof taskWithUsersInclude }>
 export interface TasksRepository {
     createTask(data: Prisma.TaskUncheckedCreateInput): Promise<TaskWithUsers>
+    countByProjectId(projectId: number): Promise<number>
 }

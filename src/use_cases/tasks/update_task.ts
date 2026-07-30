@@ -1,4 +1,4 @@
-import type { PRIORITY, Prisma } from "@/@types/prisma/client.js"
+import type { PRIORITY } from "@/@types/prisma/client.js"
 import type { ProjectsRepository } from "@/repositories/projects_repository.js"
 import type { TasksRepository, TaskWithUsers } from "@/repositories/tasks_repository.js"
 import { ProjectNotFound } from "../errors/project_not_found.js"

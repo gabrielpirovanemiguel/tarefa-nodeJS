@@ -19,7 +19,7 @@ export class PrismaTasksRepository implements TasksRepository {
         })
     }
 
-    async getTaskById(publicId: string) {
+    async getTaskByPublicId(publicId: string) {
         return await prisma.task.findUnique({
             where: {
                 publicId
@@ -54,5 +54,15 @@ export class PrismaTasksRepository implements TasksRepository {
             totalPages,
             currentPage: page
         }
+    }
+
+    async updateTask(publicId: string, data: Prisma.TaskUncheckedUpdateInput) {
+        return await prisma.task.update({
+            where: {
+                publicId 
+            },
+            data,
+            include: taskWithUsersInclude
+        })
     }
 }

@@ -14,7 +14,7 @@ export class DeleteProjectUseCase {
     ) { }
     async execute({ publicId }: deleteProjectRequest): Promise<void> {
         try {
-            const projectToDelete = await this.projectRepository.getProjectById(publicId)
+            const projectToDelete = await this.projectRepository.getProjectByPublicId(publicId)
             if (!projectToDelete) throw new ProjectNotFound()
 
             const taskCount = await this.tasksRepository.countByProjectId(projectToDelete.id)

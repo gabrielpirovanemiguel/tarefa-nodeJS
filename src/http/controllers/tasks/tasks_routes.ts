@@ -4,10 +4,12 @@ import type { FastifyInstance } from "fastify";
 import { registerTask } from "./register_task_controller.js";
 import { getTaskById } from "./get_task_by_id_controller.js";
 import { listTasks } from "./list_tasks_controller.js";
+import { updateTask } from "./update_task_controller.js";
 
 
 export function tasksRoutes(app: FastifyInstance) {
-    app.post('/',{ onRequest: [verifyJwt, verifyUserIdOrRole(['admin'])] }, registerTask)
+    app.post('/',{ onRequest: [verifyJwt, verifyUserIdOrRole(['admin'])]}, registerTask)
     app.get('/:publicId', { onRequest: [verifyJwt]}, getTaskById)
     app.get('/', { onRequest: [verifyJwt]}, listTasks)
+    app.put('/:publicId', { onRequest: [verifyJwt, verifyUserIdOrRole(['admin'])]}, updateTask)
 }

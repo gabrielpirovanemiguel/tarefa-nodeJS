@@ -13,7 +13,7 @@ export class GetTaskByIdUseCase {
     constructor(private tasksRepository: TasksRepository) {}
     async execute({publicId}: GetTaskByIdUseCaseRequest): Promise<GetTaskByIdUseCaseResponse> {
         try {
-            const task = await this.tasksRepository.getTaskById(publicId)
+            const task = await this.tasksRepository.getTaskByPublicId(publicId)
             if (!task) throw new TaskNotFound()
             return { task }
         } catch (error) {

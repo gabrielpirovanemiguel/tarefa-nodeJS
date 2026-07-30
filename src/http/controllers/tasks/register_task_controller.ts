@@ -7,7 +7,7 @@ import z from 'zod'
 
 const registerTaskBodySchema = z.object({
     title: z.string().trim().min(1, { error: 'A tarefa deve ter um título.' }).max(100),
-    description: z.string().trim().max(100).optional(),
+    description: z.string().trim().max(300).optional(),
     priority: z.enum(PRIORITY, { error: 'A prioridade escolhida para a tarefa é inválida.' }),
     completed: z.boolean().default(false),
     deadline: z.date().optional(),

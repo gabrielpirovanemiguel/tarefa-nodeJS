@@ -17,7 +17,7 @@ export class GetProjectByIdUseCase {
     }: getProjectByIdRequest): Promise<getProjectByIdResponse> {
         try {
             const project =
-                await this.projectRepository.getProjectById(publicId)
+                await this.projectRepository.getProjectByPublicId(publicId)
             if (!project) throw new ProjectNotFound()
             return { project }
         } catch (error) {

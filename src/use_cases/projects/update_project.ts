@@ -24,7 +24,7 @@ export class UpdateProjectUseCase {
         status
     }: UpdateProjectUseCaseRequest): Promise<UpdateProjectUseCaseResponse> {
         try {
-            const ProjectToUpdate = await this.projectsRepository.getProjectById(publicId)
+            const ProjectToUpdate = await this.projectsRepository.getProjectByPublicId(publicId)
             if (!ProjectToUpdate) throw new ProjectNotFound()
 
 

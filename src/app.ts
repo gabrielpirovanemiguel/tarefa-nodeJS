@@ -18,10 +18,7 @@ app.register(appRoutes)
 
 app.setErrorHandler((error, _request, reply) => {
     if (error instanceof ZodError) {
-        return reply.status(400).send({
-            message: 'Dados de registro inválidos!',
-            details: z.prettifyError(error),
-        })
+        return reply.status(400).send({message: z.prettifyError(error).replace('\n ', '')})
     }
 
     if (error instanceof SyntaxError) {

@@ -1,10 +1,10 @@
 import type { Prisma } from "@/@types/prisma/client.js";
-import { taskWithUsersInclude, type TasksRepository } from "../tasks_repository.js";
+import { taskWithUsersInclude, type ListTaskQuery, type TasksRepository} from "../tasks_repository.js";
 import { prisma } from "@/libs/prisma.js";
 
 
 export class PrismaTasksRepository implements TasksRepository {
-    async createTask(data: Prisma.TaskUncheckedCreateInput){
+    async createTask(data: Prisma.TaskUncheckedCreateInput) {
         return await prisma.task.create({
             data,
             include: taskWithUsersInclude
@@ -26,5 +26,33 @@ export class PrismaTasksRepository implements TasksRepository {
             },
             include: taskWithUsersInclude
         })
+    }
+
+    async list(query: ListTaskQuery) {
+        const { completed, priority, sort, order, page} = query
+        const limit = 4
+        const skip = (page - 1) * limit
+        const where: Prisma.TaskWhereInput = {
+            completed: completed,
+            priority: priority,
+
+        }
+
+        const tasks = await prisma.task.findMany({
+            where,
+            skip,
+            take: limit,
+            orderBy: {[sort ?? 'title']: order?? 'asc'},
+            include: taskWithUsersInclude
+        })
+
+        const totalCount = await prisma.task.count({ where })
+        const totalPages = Math.ceil(totalCount / limit)
+        return {
+            data: tasks,
+            totalCount,
+            totalPages,
+            currentPage: page
+        }
     }
 }

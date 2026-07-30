@@ -12,6 +12,13 @@ datasource db {
   provider = "postgresql"
 }
 
+enum TASK_FIELDS {
+  createdAt
+  updatedAt
+  title
+  priority
+}
+
 enum STATUS {
   active
   completed

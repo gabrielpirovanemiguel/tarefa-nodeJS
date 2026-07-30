@@ -20,7 +20,7 @@ app.setErrorHandler((error, _request, reply) => {
     if (error instanceof ZodError) {
         return reply.status(400).send({
             message: 'Dados de registro inválidos!',
-            details: z.treeifyError(error),
+            details: z.prettifyError(error),
         })
     }
 

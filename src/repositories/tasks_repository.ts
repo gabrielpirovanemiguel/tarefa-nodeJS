@@ -1,4 +1,20 @@
-import type { Prisma } from "@/@types/prisma/client.js";
+import type { PRIORITY, Prisma, TASK_FIELDS } from "@/@types/prisma/client.js";
+
+export interface ListTaskQuery {
+    completed?: boolean
+    priority?: PRIORITY
+    sort?: TASK_FIELDS
+    order?: string
+    page: 1 | number
+}
+
+export interface ListTaskResponse {
+    data: TaskWithUsers[]
+    totalCount: number
+    totalPages: number
+    currentPage: number
+}
+
 
 
 export const taskWithUsersInclude = {
@@ -21,4 +37,5 @@ export interface TasksRepository {
     createTask(data: Prisma.TaskUncheckedCreateInput): Promise<TaskWithUsers>
     countByProjectId(projectId: number): Promise<number>
     getTaskById(publicId: string): Promise<TaskWithUsers | null>
+    list(query: ListTaskQuery): Promise<ListTaskResponse>
 }

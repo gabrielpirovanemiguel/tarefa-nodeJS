@@ -5,7 +5,6 @@ import type { FastifyReply, FastifyRequest } from "fastify";
 import z from "zod";
 
 const listTaskQuerySchema = z.object({
-    page: z.coerce.number().int().positive().default(1),
     completed: z
         .enum(["true", "false"], {error: "Valor de filtro para completed inválido"})
         .transform((val) => val === "true")
@@ -19,16 +18,10 @@ export async function listTasks(request: FastifyRequest, reply: FastifyReply) {
     try {
         const query = listTaskQuerySchema.parse(request.query)
         const listTasksUseCase = makeListTasksUseCase()
-        const { dataPackage } = await listTasksUseCase.execute({ query })
+        const { tasks } = await listTasksUseCase.execute({ query })
 
-        const { data, totalCount, totalPages, currentPage } = dataPackage
 
-        return reply.status(200).send({
-            data: TaskPresenter.toHTTP(data),
-            totalCount,
-            totalPages,
-            currentPage
-        })
+        return reply.status(200).send(TaskPresenter.toHTTP(tasks))
     } catch (error) {
         throw error
     }

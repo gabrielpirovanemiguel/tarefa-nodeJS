@@ -1,19 +1,19 @@
-import type { ListTaskQuery, ListTaskResponse, TasksRepository } from "@/repositories/tasks_repository.js"
+import type { ListTaskQuery, TasksRepository, TaskWithUsers } from "@/repositories/tasks_repository.js"
 
 interface ListTasksUseCaseRequest {
     query: ListTaskQuery
 }
 
 interface ListTasksUseCaseResponse {
-    dataPackage: ListTaskResponse
+    tasks: TaskWithUsers[]
 }
 
 export class ListTasksUseCase {
     constructor(private tasksRepository: TasksRepository) {}
     async execute({ query }: ListTasksUseCaseRequest): Promise<ListTasksUseCaseResponse> {
         try {
-            const dataPackage = await this.tasksRepository.list(query)
-            return { dataPackage }
+            const tasks = await this.tasksRepository.list(query)
+            return { tasks }
         } catch (error) {
             throw error
         }   

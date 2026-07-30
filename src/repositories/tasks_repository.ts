@@ -5,16 +5,7 @@ export interface ListTaskQuery {
     priority?: PRIORITY
     sort?: TASK_FIELDS
     order?: string
-    page: 1 | number
 }
-
-export interface ListTaskResponse {
-    data: TaskWithUsers[]
-    totalCount: number
-    totalPages: number
-    currentPage: number
-}
-
 
 
 export const taskWithUsersInclude = {
@@ -37,7 +28,7 @@ export interface TasksRepository {
     createTask(data: Prisma.TaskUncheckedCreateInput): Promise<TaskWithUsers>
     countByProjectId(projectId: number): Promise<number>
     getTaskByPublicId(publicId: string): Promise<TaskWithUsers | null>
-    list(query: ListTaskQuery): Promise<ListTaskResponse>
+    list(query: ListTaskQuery): Promise<TaskWithUsers[]>
     updateTask(publicId: string, data: Prisma.TaskUncheckedUpdateInput): Promise<TaskWithUsers>
     deleteTask(publicId: string): Promise<void>
     markTaskAsCompleted(publicId: string): Promise<TaskWithUsers>

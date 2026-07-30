@@ -1,6 +1,4 @@
 import type { FastifyInstance } from 'fastify'
-import { register } from './register_controller.js'
-import { authenticate } from './auth_controller.js'
 import { listUsers } from './list_users_controller.js'
 import { verifyJwt } from '@/http/middlewares/verify_jwt.js'
 import { getUserById } from './get_by_id_controller.js'

@@ -11,10 +11,13 @@ const updateUserBodyScheme = z.object({
 
 export async function updateUser(request: FastifyRequest, reply: FastifyReply) {
     try {
-        const updateUserParamsSchema = z.object({ publicId: z.uuid() })
+        const { publicId } = z.object({ publicId: z.string() }).parse(request.params)
+
+        if (!z.uuid().safeParse(publicId).success) {
+            throw new UserNotFound()
+        }
 
         const { name, password } = updateUserBodyScheme.parse(request.body)
-        const { publicId } = updateUserParamsSchema.parse(request.params)
 
         const updateUserCase = makeUpdateUserUseCase()
         const { user } = await updateUserCase.execute({

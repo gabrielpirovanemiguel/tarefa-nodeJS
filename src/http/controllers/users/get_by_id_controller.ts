@@ -9,9 +9,11 @@ export async function getUserById(
     reply: FastifyReply,
 ) {
     try {
-        const getUserByIdParamsSchema = z.object({ publicId: z.uuid() })
-        const { publicId } = getUserByIdParamsSchema.parse(request.params)
+        const { publicId } = z.object({ publicId: z.string() }).parse(request.params)
 
+        if (!z.uuid().safeParse(publicId).success) {
+            throw new UserNotFound()
+        }
         const getByIdUseCase = makeGetUserById()
         const { user } = await getByIdUseCase.execute({ publicId })
 

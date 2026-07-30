@@ -17,9 +17,7 @@ export async function getTaskById(request: FastifyRequest, reply: FastifyReply) 
         const { task } = await getTaskUseCase.execute({ publicId })
         return reply.status(200).send(TaskPresenter.toHTTP(task))
     } catch (error) {
-        if (error instanceof z.ZodError) {
-            return reply.status(400).send({ message: z.prettifyError(error) })
-        } else if (error instanceof TaskNotFound) {
+        if (error instanceof TaskNotFound) {
             return reply.status(404).send({ message: error.message })
         }
         throw error

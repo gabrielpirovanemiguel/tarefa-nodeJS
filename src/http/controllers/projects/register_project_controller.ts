@@ -28,9 +28,6 @@ export async function registerProject(
         })
         reply.status(201).send(ProjectPresenter.toHTTP(project))
     } catch (error) {
-        if (error instanceof z.ZodError) {
-            return reply.status(400).send(z.treeifyError(error))
-        }
         throw error
     }
 }

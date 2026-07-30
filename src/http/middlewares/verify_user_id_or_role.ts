@@ -13,7 +13,7 @@ export function verifyUserIdOrRole(allowedRoles: USER_ROLE[]) {
 
         if (!isOwner && !hasAllowedRole) {
             return reply.status(403).send({
-                mesage: 'Você não tem permissão para acessar esse recurso',
+                message: 'Você não tem permissão para acessar esse recurso',
             })
         }
     }

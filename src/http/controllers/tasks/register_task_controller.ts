@@ -34,11 +34,9 @@ export async function registerTask(
         })
         reply.status(201).send(TaskPresenter.toHTTP(task))
     } catch (error) {
-        if (error instanceof z.ZodError) {
-            return reply.status(400).send(z.treeifyError(error))
-        } else if (error instanceof ProjectNotFound) {
+        if (error instanceof ProjectNotFound) {
             return reply.status(404).send({ message: error.message })
-        } 
+        }
         throw error
     }
 }

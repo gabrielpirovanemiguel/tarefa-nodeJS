@@ -30,8 +30,6 @@ export async function updateProject(request: FastifyRequest, reply: FastifyReply
     } catch (error) {
         if (error instanceof ProjectNotFound) {
             return reply.status(404).send({ message: error.message })
-        } else if (error instanceof z.ZodError) {
-            return reply.status(400).send(z.treeifyError(error))
         }
         throw error
     }

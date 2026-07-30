@@ -9,9 +9,11 @@ export async function getProjectById(
     reply: FastifyReply,
 ) {
     try {
-        const getProjectByIdParamsSchema = z.object({ publicId: z.uuid() })
-        const { publicId } = getProjectByIdParamsSchema.parse(request.params)
+        const { publicId } = z.object({ publicId: z.string() }).parse(request.params)
 
+        if (!z.uuid().safeParse(publicId).success) {
+            throw new ProjectNotFound()
+        }
         const getByIdUseCase = makeGetProjectById()
         const { project } = await getByIdUseCase.execute({ publicId })
 

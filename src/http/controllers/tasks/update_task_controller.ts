@@ -21,8 +21,11 @@ export async function updateTask(
     reply: FastifyReply
 ) {
     try {
-        const updateTaskParamsSchema = z.object({ publicId: z.uuid() })
-        const { publicId } = updateTaskParamsSchema.parse(request.params)
+        const { publicId } = z.object({ publicId: z.string() }).parse(request.params)
+
+        if (!z.uuid().safeParse(publicId).success) {
+            throw new TaskNotFound()
+        }
         const { title, description, priority, completed, deadline, projectId } = updateTaskBodySchema.parse(request.body)
 
         const updateTaskUseCase = makeUpdateTaskUseCase()

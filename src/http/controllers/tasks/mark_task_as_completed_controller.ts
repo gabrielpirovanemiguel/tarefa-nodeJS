@@ -11,8 +11,11 @@ export async function markTaskAsCompleted(
     reply: FastifyReply
 ) {
     try {
-        const markTaskAsCompletedParamSchema = z.object({publicId: z.uuid()})
-        const { publicId } = markTaskAsCompletedParamSchema.parse(request.params)
+        const { publicId } = z.object({ publicId: z.string() }).parse(request.params)
+
+        if (!z.uuid().safeParse(publicId).success) {
+            throw new TaskNotFound()
+        }
         const { sub: publicIdLoggedUser } = request.user as {sub: string}
         const markTaskAsCompletedUseCase = makeMarkTaskAsCompletedUseCase()
         const { task } = await markTaskAsCompletedUseCase.execute({publicId, publicIdLoggedUser})

@@ -6,7 +6,7 @@ import { makeUpdateUserUseCase } from '@/use_cases/factories/users/make_update_u
 
 const updateUserBodyScheme = z.object({
     name: z.string().trim().min(1).max(100).optional(),
-    password: z.string().min(8).max(100).optional(),
+    password: z.string().min(6).max(100).optional(),
 })
 
 export async function updateUser(request: FastifyRequest, reply: FastifyReply) {

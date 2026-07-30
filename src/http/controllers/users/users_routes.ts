@@ -7,18 +7,20 @@ import { getUserById } from './get_by_id_controller.js'
 import { updateUser } from './update_controller.js'
 import { verifyUserIdOrRole } from '@/http/middlewares/verify_user_id_or_role.js'
 import { deleteUser } from './delete_users.js'
+import { verifyRole } from '@/http/middlewares/verify_role.js'
+import { USER_ROLE } from '@/@types/prisma/enums.js'
 
 export async function usersRoutes(app: FastifyInstance) {
     app.get('', { onRequest: [verifyJwt] }, listUsers)
     app.get('/:publicId', { onRequest: [verifyJwt] }, getUserById)
     app.put(
-        '/update/:publicId',
-        { onRequest: [verifyJwt, verifyUserIdOrRole(['admin'])] },
+        '/:publicId',
+        { onRequest: [verifyJwt, verifyUserIdOrRole([USER_ROLE.admin])] },
         updateUser,
     )
     app.delete(
         '/:publicId',
-        { onRequest: [verifyJwt, verifyUserIdOrRole(['admin'])] },
+        { onRequest: [verifyJwt, verifyRole([USER_ROLE.admin])] },
         deleteUser,
     )
 }

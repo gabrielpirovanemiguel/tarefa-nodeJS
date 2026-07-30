@@ -11,7 +11,7 @@ const registerTaskBodySchema = z.object({
     priority: z.enum(PRIORITY, { error: 'A prioridade escolhida para a tarefa é inválida.' }),
     completed: z.boolean().default(false),
     deadline: z.date().optional(),
-    project: z.uuid({ error: 'O projeto escolhido para a tarefa é inválido.' }),
+    projectId: z.uuid({ error: 'O projeto escolhido para a tarefa é inválido.' }),
 
 })
 
@@ -20,7 +20,7 @@ export async function registerTask(
     reply: FastifyReply,
 ) {
     try {
-        const { title, description, priority, completed, deadline, project } = registerTaskBodySchema.parse(
+        const { title, description, priority, completed, deadline, projectId } = registerTaskBodySchema.parse(
             request.body,
         )
         const registerTaskUseCase = makeRegisterTaskUseCase()
@@ -30,7 +30,7 @@ export async function registerTask(
             priority,
             completed,
             deadline,
-            project
+            project: projectId
         })
         reply.status(201).send(TaskPresenter.toHTTP(task))
     } catch (error) {

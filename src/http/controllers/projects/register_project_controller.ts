@@ -26,7 +26,7 @@ export async function registerProject(
             description,
             status,
         })
-        reply.status(201).send({ project: ProjectPresenter.toHTTP(project) })
+        reply.status(201).send(ProjectPresenter.toHTTP(project))
     } catch (error) {
         if (error instanceof z.ZodError) {
             return reply.status(400).send(z.treeifyError(error))

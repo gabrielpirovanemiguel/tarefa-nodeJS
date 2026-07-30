@@ -12,7 +12,7 @@ export async function listProjects(
 
         return reply
             .status(200)
-            .send({ projects: ProjectPresenter.toHTTP(projects) })
+            .send(ProjectPresenter.toHTTP(projects))
     } catch (error) {
         throw error
     }

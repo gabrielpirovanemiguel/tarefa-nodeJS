@@ -32,7 +32,7 @@ export async function registerTask(
             deadline,
             project
         })
-        reply.status(201).send({ task: TaskPresenter.toHTTP(task) })
+        reply.status(201).send(TaskPresenter.toHTTP(task))
     } catch (error) {
         if (error instanceof z.ZodError) {
             return reply.status(400).send(z.treeifyError(error))

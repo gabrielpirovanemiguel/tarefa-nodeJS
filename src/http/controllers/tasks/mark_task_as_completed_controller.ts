@@ -17,7 +17,7 @@ export async function markTaskAsCompleted(
         const markTaskAsCompletedUseCase = makeMarkTaskAsCompletedUseCase()
         const { task } = await markTaskAsCompletedUseCase.execute({publicId, publicIdLoggedUser})
 
-        return reply.code(200).send({task: TaskPresenter.toHTTP(task)})
+        return reply.code(200).send(TaskPresenter.toHTTP(task))
     } catch (error) {
         if (error instanceof TaskNotFound) {
             return reply.code(404).send({message: error.message})

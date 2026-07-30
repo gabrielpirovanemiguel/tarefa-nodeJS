@@ -37,7 +37,7 @@ export async function updateTask(
             projectId
         })
 
-        return reply.code(200).send({ task: TaskPresenter.toHTTP(task) })
+        return reply.code(200).send(TaskPresenter.toHTTP(task))
     } catch (error) {
         if (error instanceof ProjectNotFound) {
             return reply.code(404).send({message: error.message})

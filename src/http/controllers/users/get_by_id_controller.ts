@@ -15,7 +15,7 @@ export async function getUserById(
         const getByIdUseCase = makeGetUserById()
         const { user } = await getByIdUseCase.execute({ publicId })
 
-        return reply.status(200).send({ user: UserPresenter.toHTTP(user) })
+        return reply.status(200).send(UserPresenter.toHTTP(user))
     } catch (error) {
         if (error instanceof UserNotFound) {
             return reply.status(404).send({ message: error.message })

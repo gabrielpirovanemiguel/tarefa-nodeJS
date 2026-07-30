@@ -26,7 +26,7 @@ export async function updateProject(request: FastifyRequest, reply: FastifyReply
             status
         })
 
-        return reply.status(200).send({ Project: ProjectPresenter.toHTTP(project) })
+        return reply.status(200).send(ProjectPresenter.toHTTP(project))
     } catch (error) {
         if (error instanceof ProjectNotFound) {
             return reply.status(404).send({ message: error.message })

@@ -1,6 +1,7 @@
 import type { Prisma } from "@/@types/prisma/client.js";
-import { taskWithUsersInclude, type ListTaskQuery, type TasksRepository} from "../tasks_repository.js";
+import { taskWithUsersInclude, type ListTaskQuery, type TasksRepository, type TaskWithUsers} from "../tasks_repository.js";
 import { prisma } from "@/libs/prisma.js";
+import { includes } from "zod";
 
 
 export class PrismaTasksRepository implements TasksRepository {
@@ -58,9 +59,7 @@ export class PrismaTasksRepository implements TasksRepository {
 
     async updateTask(publicId: string, data: Prisma.TaskUncheckedUpdateInput) {
         return await prisma.task.update({
-            where: {
-                publicId 
-            },
+            where: {publicId},
             data,
             include: taskWithUsersInclude
         })
@@ -68,5 +67,13 @@ export class PrismaTasksRepository implements TasksRepository {
 
     async deleteTask(publicId: string){
         await prisma.task.delete({where: {publicId}})
+    }
+
+    async markTaskAsCompleted(publicId: string) {
+        return await prisma.task.update({
+            where: {publicId, completed: false},
+            data: {completed: true},
+            include: taskWithUsersInclude
+        })
     }
 }

@@ -24,7 +24,7 @@ export class UpdateUserUseCase {
     }: UpdateUserUseCaseRequest): Promise<UpdateUserUseCaseResponse> {
         try {
             const userToUpdate =
-                await this.usersRepository.getUserById(publicId)
+                await this.usersRepository.getUserByPublicId(publicId)
             if (!userToUpdate) throw new UserNotFound()
 
             let passwordHash

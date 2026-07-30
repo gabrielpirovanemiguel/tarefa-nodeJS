@@ -14,7 +14,6 @@ export class ListTasksUseCase {
         try {
             const dataPackage = await this.tasksRepository.list(query)
             return { dataPackage }
-
         } catch (error) {
             throw error
         }   

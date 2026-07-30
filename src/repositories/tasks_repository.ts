@@ -40,4 +40,5 @@ export interface TasksRepository {
     list(query: ListTaskQuery): Promise<ListTaskResponse>
     updateTask(publicId: string, data: Prisma.TaskUncheckedUpdateInput): Promise<TaskWithUsers>
     deleteTask(publicId: string): Promise<void>
+    markTaskAsCompleted(publicId: string): Promise<TaskWithUsers>
 }

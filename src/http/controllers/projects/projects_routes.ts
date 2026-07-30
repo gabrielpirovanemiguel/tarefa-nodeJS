@@ -14,7 +14,7 @@ export function projectsRoutes(app: FastifyInstance) {
         { onRequest: [verifyJwt, verifyUserIdOrRole([USER_ROLE.admin])] },
         registerProject,
     )
-    app.get('/', { onRequest: [verifyJwt] }, listProjects)
+    app.get('', { onRequest: [verifyJwt] }, listProjects)
     app.get('/:publicId', { onRequest: [verifyJwt] }, getProjectById)
     app.put(
         '/:publicId',

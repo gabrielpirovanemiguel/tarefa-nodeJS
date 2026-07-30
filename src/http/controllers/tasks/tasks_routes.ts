@@ -13,7 +13,7 @@ import { markTaskAsCompleted } from "./mark_task_as_completed_controller.js";
 export function tasksRoutes(app: FastifyInstance) {
     app.post('/',{ onRequest: [verifyJwt, verifyUserIdOrRole([USER_ROLE.admin])]}, registerTask)
     app.get('/:publicId', { onRequest: [verifyJwt]}, getTaskById)
-    app.get('/', { onRequest: [verifyJwt]}, listTasks)
+    app.get('', { onRequest: [verifyJwt]}, listTasks)
     app.put('/:publicId', { onRequest: [verifyJwt, verifyUserIdOrRole([USER_ROLE.admin])]}, updateTask)
     app.delete('/:publicId', { onRequest: [verifyJwt, verifyUserIdOrRole([USER_ROLE.admin])]}, deleteTask)
     app.patch('/:publicId', {onRequest: [verifyJwt, verifyUserIdOrRole([USER_ROLE.admin])]}, markTaskAsCompleted)

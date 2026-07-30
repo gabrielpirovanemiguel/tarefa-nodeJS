@@ -7,12 +7,11 @@ export async function listProjects(
     reply: FastifyReply,
 ) {
     try {
+        console.log(2)
         const listProjects = makeListProjectsUseCase()
         const { projects } = await listProjects.execute()
 
-        return reply
-            .status(200)
-            .send(ProjectPresenter.toHTTP(projects))
+        return reply.status(200).send(ProjectPresenter.toHTTP(projects))
     } catch (error) {
         throw error
     }

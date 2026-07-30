@@ -3,11 +3,11 @@ import type { ProjectsRepository } from '../projects_repository.js'
 import { prisma } from '@/libs/prisma.js'
 
 export class PrismaProjectsRepository implements ProjectsRepository {
-    async createProject(data: Prisma.ProjectCreateInput): Promise<Project> {
+    async createProject(data: Prisma.ProjectCreateInput){
         return await prisma.project.create({ data })
     }
 
-    async listProjects(): Promise<Project[]> {
+    async listProjects() {
         return await prisma.project.findMany()
     }
 

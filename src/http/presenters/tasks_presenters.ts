@@ -9,7 +9,7 @@ type HTTPTask = {
     title: string
     description: string | null
     deadline: Date | null
-    project: number
+    projectId: string
     priority: PRIORITY
     completed: boolean
     createdAt: Date
@@ -37,7 +37,7 @@ export class TaskPresenter {
             priority: input.priority,
             completed: input.completed,
             deadline: input.deadline,
-            project: input.projectId,
+            projectId: input.project.publicId,
             createdAt: input.createdAt,
             updatedAt: input.updatedAt,
             assignedUsers: input.taskUser.map((tu) => ({

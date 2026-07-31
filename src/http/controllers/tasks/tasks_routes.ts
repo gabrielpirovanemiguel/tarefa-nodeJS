@@ -20,5 +20,5 @@ export function tasksRoutes(app: FastifyInstance) {
     app.put('/:publicId', { onRequest: [verifyJwt, verifyUserIdOrRole([USER_ROLE.admin])]}, updateTask)
     app.delete('/:publicId', { onRequest: [verifyJwt, verifyUserIdOrRole([USER_ROLE.admin])]}, deleteTask)
     app.delete('/:taskId/assign/:userId', { onRequest: [verifyJwt, verifyUserIdOrRole([USER_ROLE.admin])]}, deleteTaskUser)
-    app.patch('/:publicId/complete', {onRequest: [verifyJwt, verifyUserIdOrRole([USER_ROLE.admin])]}, markTaskAsCompleted)
+    app.patch('/:publicId/complete', {onRequest: [verifyJwt]}, markTaskAsCompleted)
 }

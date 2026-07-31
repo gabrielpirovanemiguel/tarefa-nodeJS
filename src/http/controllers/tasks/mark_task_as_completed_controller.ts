@@ -25,7 +25,7 @@ export async function markTaskAsCompleted(
         if (error instanceof TaskNotFound) {
             return reply.code(404).send({message: error.message})
         } else if( error instanceof InvalidPermissions) {
-            return reply.code(403).send({messaage: error.message})
+            return reply.code(403).send({message: error.message})
         }
         throw error
     }

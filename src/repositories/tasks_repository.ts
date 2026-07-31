@@ -21,6 +21,9 @@ export const taskWithUsersInclude = {
                 }
             }
         }
+    },
+    project: {
+        select: { publicId: true }
     }
 } satisfies Prisma.TaskInclude
 

@@ -70,7 +70,7 @@ export class PrismaTasksRepository implements TasksRepository {
                 task: { publicId: publicIdTask },
                 user: { publicId: publicIdUser },
             },
-            select: { id: true }, // só traz o mínimo, não precisa dos dados todos
+            select: { id: true },
         })
 
         return taskUser !== null

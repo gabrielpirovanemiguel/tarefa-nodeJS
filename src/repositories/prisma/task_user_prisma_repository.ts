@@ -9,4 +9,24 @@ export class PrismaTaskUserRepository implements TaskUserRepository {
             skipDuplicates: true,
         })
     }
+
+    async deleteTaskUser(idTask: number, idUser: number) {
+        await prisma.taskUser.delete({
+            where: {
+                taskId_userId: {
+                    taskId: idTask,
+                    userId: idUser,
+                },
+            },
+        })
+    }
+
+    async findTaskUser(idTask: number, idUser: number) {
+        return await prisma.taskUser.findUnique({
+            where: {
+                taskId_userId: { taskId: idTask, userId: idUser },
+            },
+        })
+    }
+
 }

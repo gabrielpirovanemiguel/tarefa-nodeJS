@@ -9,6 +9,7 @@ import { deleteTask } from "./delete_task_controller.js";
 import { verifyUserIdOrRole } from "@/http/middlewares/verify_user_id_or_role.js";
 import { markTaskAsCompleted } from "./mark_task_as_completed_controller.js";
 import { registerTaskUser } from "../task_user/register_task_user_controller.js";
+import { deleteTaskUser } from "../task_user/delete_task_user_controller.js";
 
 
 export function tasksRoutes(app: FastifyInstance) {
@@ -18,5 +19,6 @@ export function tasksRoutes(app: FastifyInstance) {
     app.get('', { onRequest: [verifyJwt]}, listTasks)
     app.put('/:publicId', { onRequest: [verifyJwt, verifyUserIdOrRole([USER_ROLE.admin])]}, updateTask)
     app.delete('/:publicId', { onRequest: [verifyJwt, verifyUserIdOrRole([USER_ROLE.admin])]}, deleteTask)
+    app.delete('/:taskId/assign/:userId', { onRequest: [verifyJwt, verifyUserIdOrRole([USER_ROLE.admin])]}, deleteTaskUser)
     app.patch('/:publicId/complete', {onRequest: [verifyJwt, verifyUserIdOrRole([USER_ROLE.admin])]}, markTaskAsCompleted)
 }

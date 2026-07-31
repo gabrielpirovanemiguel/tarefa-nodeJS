@@ -14,6 +14,7 @@ export const taskWithUsersInclude = {
             user: {
                 select: {
                     id: true,
+                    publicId: true,
                     name: true,
                     email: true,
                     role: true

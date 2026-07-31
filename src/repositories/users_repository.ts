@@ -8,5 +8,5 @@ export interface UsersRepository {
     getUserIdByPublicId(publicId: string): Promise<{ id: number } | null>
     updateUser(publicId: string, data: Prisma.UserUpdateInput): Promise<User>
     deleteUser(publicId: string): Promise<void>
-    findManyUsersByIds(ids: number[]): Promise<User[]>
+    findManyUsersByPublicIds(publicIds: string[]): Promise<User[]>
 }

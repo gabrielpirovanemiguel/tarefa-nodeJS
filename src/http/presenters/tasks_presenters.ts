@@ -15,7 +15,7 @@ type HTTPTask = {
     createdAt: Date
     updatedAt: Date
     assignedUsers: {
-        id: number
+        id: string
         name: string
         email: string
         role: string
@@ -41,7 +41,7 @@ export class TaskPresenter {
             createdAt: input.createdAt,
             updatedAt: input.updatedAt,
             assignedUsers: input.taskUser.map((tu) => ({
-                id: tu.user.id,
+                id: tu.user.publicId,
                 name: tu.user.name,
                 email: tu.user.email,
                 role: tu.user.role

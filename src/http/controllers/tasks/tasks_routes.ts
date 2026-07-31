@@ -16,5 +16,5 @@ export function tasksRoutes(app: FastifyInstance) {
     app.get('', { onRequest: [verifyJwt]}, listTasks)
     app.put('/:publicId', { onRequest: [verifyJwt, verifyUserIdOrRole([USER_ROLE.admin])]}, updateTask)
     app.delete('/:publicId', { onRequest: [verifyJwt, verifyUserIdOrRole([USER_ROLE.admin])]}, deleteTask)
-    app.patch('/:publicId', {onRequest: [verifyJwt, verifyUserIdOrRole([USER_ROLE.admin])]}, markTaskAsCompleted)
+    app.patch('/:publicId/complete', {onRequest: [verifyJwt, verifyUserIdOrRole([USER_ROLE.admin])]}, markTaskAsCompleted)
 }

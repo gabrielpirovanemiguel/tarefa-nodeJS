@@ -1,13 +1,12 @@
 import type { TasksRepository, TaskWithUsers } from "@/repositories/tasks_repository.js"
 import { TaskNotFound } from "../errors/task_not_found.js"
-import type { UsersRepository } from "@/repositories/users_repository.js"
-import { UserNotFound } from "../errors/user_not_found.js"
 import { InvalidPermissions } from "../errors/invalid_permissions_error.js"
+import { USER_ROLE } from "@/@types/prisma/browser.js"
 
 interface MarkTaskAsCompletedUseCaseRequest {
     publicId: string
-    publicIdLoggedUser: string
-    
+    payLoadUser: {sub: string, role: string}
+
 }
 
 type MarkTaskAsCompletedUseCaseReply = {
@@ -15,17 +14,15 @@ type MarkTaskAsCompletedUseCaseReply = {
 }
 
 export class MarkTaskAsCompletedUseCase {
-    constructor(private tasksRepository: TasksRepository,
-                private usersRespository: UsersRepository
-    ) {}
-    async execute({publicId, publicIdLoggedUser}: MarkTaskAsCompletedUseCaseRequest): Promise<MarkTaskAsCompletedUseCaseReply>{
+    constructor(private tasksRepository: TasksRepository) {}
+    async execute({publicId, payLoadUser}: MarkTaskAsCompletedUseCaseRequest): Promise<MarkTaskAsCompletedUseCaseReply>{
         try {
             const taskToMark = await this.tasksRepository.getTaskByPublicId(publicId)
             if (!taskToMark) throw new TaskNotFound()
-            const userLogged = await this.usersRespository.getUserIdByPublicId(publicIdLoggedUser)
-            if(!userLogged) throw new UserNotFound()
-            const isUserInTask = taskToMark.taskUser.some((user) => user.id === userLogged.id)
-            if (!isUserInTask) throw new InvalidPermissions()
+            const { sub: publicIdLoggedUser, role } = payLoadUser
+
+            const isUserInTask = await this.tasksRepository.findUserInTask(publicIdLoggedUser, publicId)
+            if (!isUserInTask && role !== USER_ROLE.admin) throw new InvalidPermissions()
             const task = await this.tasksRepository.markTaskAsCompleted(publicId)
             return { task }
         } catch(error) {

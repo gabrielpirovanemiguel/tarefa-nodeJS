@@ -28,6 +28,7 @@ export interface TasksRepository {
     createTask(data: Prisma.TaskUncheckedCreateInput): Promise<TaskWithUsers>
     countByProjectId(projectId: number): Promise<number>
     getTaskByPublicId(publicId: string): Promise<TaskWithUsers | null>
+    findUserInTask(publicIdUser: string, publicIdTask: string): Promise<boolean>
     list(query: ListTaskQuery): Promise<TaskWithUsers[]>
     updateTask(publicId: string, data: Prisma.TaskUncheckedUpdateInput): Promise<TaskWithUsers>
     deleteTask(publicId: string): Promise<void>

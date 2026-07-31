@@ -63,7 +63,7 @@ export class PrismaTasksRepository implements TasksRepository {
             include: taskWithUsersInclude
         })
     }
-
+    
     async findUserInTask(publicIdUser: string, publicIdTask: string) {
         const taskUser = await prisma.taskUser.findFirst({
             where: {
@@ -74,5 +74,12 @@ export class PrismaTasksRepository implements TasksRepository {
         })
 
         return taskUser !== null
+    }
+
+    async getIdByPublicId(publicId: string) {
+        return await prisma.task.findUnique({
+            where: { publicId },
+            select: { id: true }
+        })
     }
 }

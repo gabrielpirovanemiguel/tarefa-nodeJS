@@ -13,7 +13,7 @@ const registerTaskBodySchema = z.object({
         .nullish()                                  
         .transform((val) => val ?? PRIORITY.medium),  
     completed: z.boolean().default(false),
-    deadline: z.date().optional(),
+    deadline: z.coerce.date().optional(),
     projectId: z.uuid({ error: 'O projeto escolhido para a tarefa é inválido.' }),
 
 })

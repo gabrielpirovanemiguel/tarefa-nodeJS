@@ -17,6 +17,7 @@ enum TASK_FIELDS {
   updatedAt
   title
   priority
+  deadline
 }
 
 enum STATUS {

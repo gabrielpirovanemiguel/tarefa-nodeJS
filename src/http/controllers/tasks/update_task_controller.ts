@@ -12,7 +12,7 @@ const updateTaskBodySchema = z.object({
     description: z.string().trim().max(300).optional(),
     priority: z.enum(PRIORITY, { error: "O tipo de prioridade selecionada para essa tarefa é inválido." }).optional(),
     completed: z.boolean().optional(),
-    deadline: z.date().optional(),
+    deadline: z.coerce.date().optional(),
     projectId: z.number().int().positive().optional()
 })
 

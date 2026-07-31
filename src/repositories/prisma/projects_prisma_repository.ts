@@ -1,9 +1,10 @@
 import type { Prisma, Project } from '@/@types/prisma/client.js'
 import type { ProjectsRepository } from '../projects_repository.js'
 import { prisma } from '@/libs/prisma.js'
+import { taskWithUsersInclude } from '../tasks_repository.js'
 
 export class PrismaProjectsRepository implements ProjectsRepository {
-    async createProject(data: Prisma.ProjectCreateInput){
+    async createProject(data: Prisma.ProjectCreateInput) {
         return await prisma.project.create({ data })
     }
 
@@ -19,7 +20,7 @@ export class PrismaProjectsRepository implements ProjectsRepository {
 
     async getProjectById(id: number) {
         return await prisma.project.findUnique({
-            where: {id}
+            where: { id }
         })
     }
 
@@ -30,9 +31,18 @@ export class PrismaProjectsRepository implements ProjectsRepository {
         })
     }
 
-    async deleteProject(publicId: string): Promise<void> {
+    async deleteProject(publicId: string) {
         await prisma.project.delete({
             where: { publicId },
         })
+    }
+
+    async getTasksInProject(publicId: string) {
+        const project = await prisma.project.findUnique({
+            where: { publicId },
+            include: { tasks: {include: taskWithUsersInclude} },
+        })
+
+        return project?.tasks ?? null
     }
 }

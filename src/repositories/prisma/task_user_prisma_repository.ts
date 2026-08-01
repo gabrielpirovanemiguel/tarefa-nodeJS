@@ -29,4 +29,10 @@ export class PrismaTaskUserRepository implements TaskUserRepository {
         })
     }
 
+    async findTaskUserByUserId(idUser: number) {
+        return await prisma.taskUser.findMany({
+            where: { userId: idUser }
+        })
+    }
+
 }

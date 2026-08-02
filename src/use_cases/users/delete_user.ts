@@ -1,13 +1,13 @@
 import type { UsersRepository } from '@/repositories/users_repository.js'
 import { UserNotFound } from '../errors/user_not_found.js'
 
-interface deleteUserRequest {
+interface deleteUserUseCaseRequest {
     publicIdUser: string
 }
 
 export class DeleteUserUseCase {
     constructor(private userRepository: UsersRepository) {}
-    async execute({ publicIdUser }: deleteUserRequest): Promise<void> {
+    async execute({ publicIdUser }: deleteUserUseCaseRequest): Promise<void> {
         try {
             const userToDelete = await this.userRepository.getUserByPublicId(publicIdUser)
             if (!userToDelete) throw new UserNotFound()

@@ -1,7 +1,7 @@
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import { UserPresenter } from '@/http/presenters/users_presenter.js'
 import z from 'zod'
-import { makeGetUserById } from '@/use_cases/factories/users/make_get_by_id.js'
+import { makeGetUserByIdUseCase } from '@/use_cases/factories/users/make_get_by_id.js'
 import { UserNotFound } from '@/use_cases/errors/user_not_found.js'
 
 export async function getUserById(request: FastifyRequest, reply: FastifyReply) {
@@ -11,7 +11,7 @@ export async function getUserById(request: FastifyRequest, reply: FastifyReply) 
         if (!z.uuid().safeParse(publicIdUser).success) {
             throw new UserNotFound()
         }
-        const getByIdUseCase = makeGetUserById()
+        const getByIdUseCase = makeGetUserByIdUseCase()
         const { user } = await getByIdUseCase.execute({ publicIdUser })
 
         return reply.status(200).send(UserPresenter.toHTTP(user))

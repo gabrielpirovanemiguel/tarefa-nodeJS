@@ -1,6 +1,6 @@
 import { ProjectPresenter } from '@/http/presenters/projects_presenters.js'
 import { ProjectNotFound } from '@/use_cases/errors/project_not_found.js'
-import { makeGetProjectById } from '@/use_cases/factories/projects/make_get_project_by_id.js'
+import { makeGetProjectByIdUseCase } from '@/use_cases/factories/projects/make_get_project_by_id.js'
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import z from 'zod'
 
@@ -14,7 +14,7 @@ export async function getProjectById(
         if (!z.uuid().safeParse(publicIdProject).success) {
             throw new ProjectNotFound()
         }
-        const getByIdUseCase = makeGetProjectById()
+        const getByIdUseCase = makeGetProjectByIdUseCase()
         const { project } = await getByIdUseCase.execute({ publicIdProject })
 
         return reply.status(200).send(ProjectPresenter.toHTTP(project))

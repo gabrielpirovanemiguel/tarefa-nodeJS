@@ -2,11 +2,11 @@ import type { User } from '@/@types/prisma/client.js'
 import type { UsersRepository } from '@/repositories/users_repository.js'
 import { UserNotFound } from '../errors/user_not_found.js'
 
-interface getUserByIdRequest {
+interface getUserByIdRequestUseCase {
     publicIdUser: string
 }
 
-type getUserByIdResponse = {
+type getUserByIdResponseUseCase = {
     user: User
 }
 
@@ -14,7 +14,7 @@ export class GetByIdUseCase {
     constructor(private userRepository: UsersRepository) {}
     async execute({
         publicIdUser,
-    }: getUserByIdRequest): Promise<getUserByIdResponse> {
+    }: getUserByIdRequestUseCase): Promise<getUserByIdResponseUseCase> {
         try {
             const user = await this.userRepository.getUserByPublicId(publicIdUser)
             if (!user) throw new UserNotFound()

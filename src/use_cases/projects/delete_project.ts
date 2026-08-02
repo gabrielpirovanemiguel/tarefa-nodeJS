@@ -4,7 +4,7 @@ import { ProjectHasAssociatedTasksError } from "../errors/project_has_tasks_erro
 import type { TasksRepository } from "@/repositories/tasks_repository.js"
 
 
-interface deleteProjectRequest {
+interface deleteProjectUseCaseRequest {
     publicIdProject: string
 }
 
@@ -12,7 +12,7 @@ export class DeleteProjectUseCase {
     constructor(private projectRepository: ProjectsRepository,
                 private tasksRepository: TasksRepository
     ) { }
-    async execute({ publicIdProject }: deleteProjectRequest): Promise<void> {
+    async execute({ publicIdProject }: deleteProjectUseCaseRequest): Promise<void> {
         try {
             const projectToDelete = await this.projectRepository.getProjectByPublicId(publicIdProject)
             if (!projectToDelete) throw new ProjectNotFound()

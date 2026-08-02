@@ -12,7 +12,7 @@ export class ListTasksUseCase {
     constructor(private tasksRepository: TasksRepository) {}
     async execute({ query }: ListTasksUseCaseRequest): Promise<ListTasksUseCaseResponse> {
         try {
-            const tasks = await this.tasksRepository.list(query)
+            const tasks = await this.tasksRepository.listTasks(query)
             return { tasks }
         } catch (error) {
             throw error

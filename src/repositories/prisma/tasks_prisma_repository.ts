@@ -12,7 +12,7 @@ export class PrismaTasksRepository implements TasksRepository {
         })
     }
 
-    async countByProjectId(projectId: number) {
+    async countTasksByProjectId(projectId: number) {
         return await prisma.task.count({
             where: {
                 projectId
@@ -29,7 +29,7 @@ export class PrismaTasksRepository implements TasksRepository {
         })
     }
 
-    async list(query: ListTaskQuery) {
+    async listTasks(query: ListTaskQuery) {
         const { completed, priority, sort, order } = query
         const where: Prisma.TaskWhereInput = {
             completed: completed,

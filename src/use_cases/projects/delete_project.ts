@@ -17,7 +17,7 @@ export class DeleteProjectUseCase {
             const projectToDelete = await this.projectRepository.getProjectByPublicId(publicIdProject)
             if (!projectToDelete) throw new ProjectNotFound()
 
-            const taskCount = await this.tasksRepository.countByProjectId(projectToDelete.id)
+            const taskCount = await this.tasksRepository.countTasksByProjectId(projectToDelete.id)
             if (taskCount > 0) throw new ProjectHasAssociatedTasksError()
 
             await this.projectRepository.deleteProject(publicIdProject)

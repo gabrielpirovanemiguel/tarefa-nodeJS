@@ -4,7 +4,7 @@ import type { TasksRepository, TaskWithUsers } from '@/repositories/tasks_reposi
 import { UserNotFound } from '../errors/user_not_found.js'
 
 interface getTasksWithUserRequest {
-    publicId: string
+    publicIdUser: string
 }
 
 type getTasksWithUserResponse = {
@@ -18,10 +18,10 @@ export class GetTasksWithUserUseCase {
         private usersRepository: UsersRepository
     ) { }
     async execute({
-        publicId,
+        publicIdUser,
     }: getTasksWithUserRequest): Promise<getTasksWithUserResponse> {
         try {
-            const user = await this.usersRepository.getUserByPublicId(publicId)
+            const user = await this.usersRepository.getUserByPublicId(publicIdUser)
             if (!user) throw new UserNotFound()
             const taskUser = await this.taskUserRepository.findTaskUserByUserIds(user.id)
             const tasksId = taskUser.map((tu) => tu.taskId)

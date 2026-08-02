@@ -19,7 +19,7 @@ export class AuthUserUseCase {
         email,
         password,
     }: AuthUserUseCaseRequest): Promise<AuthUserUseCaseResponse> {
-        const user = await this.usersRepository.findByEmail(email)
+        const user = await this.usersRepository.findUserByEmail(email)
         if (!user) throw new InvalidCredentialsError()
 
         const doesPasswordMatch = await compare(password, user.passwordHash)

@@ -16,15 +16,15 @@ export function projectsRoutes(app: FastifyInstance) {
         registerProject,
     )
     app.get('', { onRequest: [verifyJwt] }, makeReportProjects)
-    app.get('/:publicId', { onRequest: [verifyJwt] }, getProjectById)
-    app.get('/:publicId/tasks', { onRequest: [verifyJwt]}, getTasksInProject)
+    app.get('/:publicIdProject', { onRequest: [verifyJwt] }, getProjectById)
+    app.get('/:publicIdProject/tasks', { onRequest: [verifyJwt]}, getTasksInProject)
     app.put(
-        '/:publicId',
+        '/:publicIdProject',
         { onRequest: [verifyJwt, verifyUserIdOrRole([USER_ROLE.admin])] },
         updateProject
     )
     app.delete(
-        '/:publicId',
+        '/:publicIdProject',
         { onRequest: [verifyJwt, verifyUserIdOrRole([USER_ROLE.admin])] },
         deleteProject,
     )

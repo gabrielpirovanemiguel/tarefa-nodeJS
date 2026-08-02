@@ -1,12 +1,12 @@
 import type { Prisma, User } from '@/@types/prisma/client.js'
 
 export interface UsersRepository {
-    create(data: Prisma.UserCreateInput): Promise<User>
-    findByEmail(email: string): Promise<User | null>
-    list(): Promise<User[]>
-    getUserByPublicId(publicId: string): Promise<User | null>
-    getUserIdByPublicId(publicId: string): Promise<{ id: number } | null>
-    updateUser(publicId: string, data: Prisma.UserUpdateInput): Promise<User>
-    deleteUser(publicId: string): Promise<void>
-    findManyUsersByPublicIds(publicIds: string[]): Promise<User[]>
+    createUser(data: Prisma.UserCreateInput): Promise<User>
+    findUserByEmail(email: string): Promise<User | null>
+    listUsers(): Promise<User[]>
+    getUserByPublicId(publicIdUser: string): Promise<User | null>
+    getUserIdByPublicId(publicIdUser: string): Promise<{ id: number } | null>
+    updateUser(publicIdUser: string, data: Prisma.UserUpdateInput): Promise<User>
+    deleteUser(publicIdUser: string): Promise<void>
+    findManyUsersByPublicIds(publicIdUsers: string[]): Promise<User[]>
 }

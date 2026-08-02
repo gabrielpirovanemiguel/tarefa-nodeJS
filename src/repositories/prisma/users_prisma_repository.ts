@@ -3,40 +3,40 @@ import { prisma } from '@/libs/prisma.js'
 import type { UsersRepository } from '../users_repository.js'
 
 export class PrismaUsersRepository implements UsersRepository {
-    async create(data: Prisma.UserCreateInput) {
+    async createUser(data: Prisma.UserCreateInput) {
         return await prisma.user.create({ data })
     }
 
-    async findByEmail(email: string) {
+    async findUserByEmail(email: string) {
         return await prisma.user.findFirst({ where: { email } })
     }
 
-    async list() {
+    async listUsers() {
         return await prisma.user.findMany()
     }
 
-    async getUserIdByPublicId(publicId: string) {
-        return await prisma.user.findUnique({where: { publicId }, select: {id: true}})
+    async getUserIdByPublicId(publicIdUser: string) {
+        return await prisma.user.findUnique({where: { publicId: publicIdUser }, select: {id: true}})
     }
 
-    async getUserByPublicId(publicId: string) {
-        return await prisma.user.findUnique({ where: { publicId } })
+    async getUserByPublicId(publicIdUser: string) {
+        return await prisma.user.findUnique({ where: { publicId: publicIdUser } })
     }
 
-    async updateUser(publicId: string, data: Prisma.UserUpdateInput) {
+    async updateUser(publicIdUser: string, data: Prisma.UserUpdateInput) {
         return await prisma.user.update({
-            where: { publicId },
+            where: { publicId: publicIdUser },
             data,
         })
     }
 
-    async deleteUser(publicId: string) {
-        await prisma.user.delete({ where: { publicId } })
+    async deleteUser(publicIdUser: string) {
+        await prisma.user.delete({ where: { publicId: publicIdUser } })
     }
 
-    async findManyUsersByPublicIds(publicIds: string[]) {
+    async findManyUsersByPublicIds(publicIdUsers: string[]) {
         return await prisma.user.findMany({
-            where: { publicId: { in: publicIds } }
+            where: { publicId: { in: publicIdUsers } }
         })
     }
 

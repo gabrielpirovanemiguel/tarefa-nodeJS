@@ -9,7 +9,7 @@ export class ListUsersUseCase {
     constructor(private usersRepository: UsersRepository) {}
 
     async execute(): Promise<ListUsersUseCaseResponse> {
-        const users = await this.usersRepository.list()
+        const users = await this.usersRepository.listUsers()
         return { users }
     }
 }

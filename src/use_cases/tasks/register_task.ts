@@ -26,10 +26,10 @@ export class RegisterTaskUseCase {
         priority,
         completed,
         deadline,
-        project: projectPublicId
+        project: publicIdProject
     }: RegisterTaskUseCaseRequest): Promise<RegisterTaskUseCaseResponse> {
         try {
-            const doesProjectExist = await this.projectsRepository.getProjectByPublicId(projectPublicId)
+            const doesProjectExist = await this.projectsRepository.getProjectByPublicId(publicIdProject)
             if (!doesProjectExist) throw new ProjectNotFound()
             const projectId = doesProjectExist.id
 

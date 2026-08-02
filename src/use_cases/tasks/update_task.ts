@@ -5,7 +5,7 @@ import { ProjectNotFound } from "../errors/project_not_found.js"
 import { TaskNotFound } from "../errors/task_not_found.js"
 
 interface UpdateTaskUseCaseRequest {
-    publicId: string
+    publicIdTask: string
     title?: string
     description?: string
     priority?: PRIORITY
@@ -24,7 +24,7 @@ export class UpdateTaskUseCase {
         private projectsRepository: ProjectsRepository
     ) { }
     async execute({
-        publicId,
+        publicIdTask,
         title,
         description,
         priority,
@@ -38,11 +38,11 @@ export class UpdateTaskUseCase {
                 if (!doesProjectIdToUpdateExist) throw new ProjectNotFound()
             }
 
-            const doesTaskToUpdateExist = await this.tasksRepository.getTaskByPublicId(publicId)
+            const doesTaskToUpdateExist = await this.tasksRepository.getTaskByPublicId(publicIdTask)
             if (!doesTaskToUpdateExist) throw new TaskNotFound()
 
             const task = await this.tasksRepository.updateTask(
-                publicId, {
+                publicIdTask, {
                 title,
                 description,
                 priority,

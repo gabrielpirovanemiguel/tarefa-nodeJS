@@ -6,13 +6,13 @@ import z from 'zod'
 
 export async function deleteProject(request: FastifyRequest, reply: FastifyReply) {
     try {
-        const { publicId } = z.object({ publicId: z.string() }).parse(request.params)
+        const { publicIdProject } = z.object({ publicIdProject: z.string() }).parse(request.params)
 
-        if (!z.uuid().safeParse(publicId).success) {
+        if (!z.uuid().safeParse(publicIdProject).success) {
             throw new ProjectNotFound()
         }
         const deleteProjectCase = makeDeleteProjectUseCase()
-        await deleteProjectCase.execute({ publicId })
+        await deleteProjectCase.execute({ publicIdProject })
 
         return reply.status(204).send()
     } catch (error) {

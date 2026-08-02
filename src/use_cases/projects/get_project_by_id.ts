@@ -3,7 +3,7 @@ import type { ProjectsRepository } from '@/repositories/projects_repository.js'
 import { ProjectNotFound } from '../errors/project_not_found.js'
 
 interface getProjectByIdRequest {
-    publicId: string
+    publicIdProject: string
 }
 
 type getProjectByIdResponse = {
@@ -13,10 +13,10 @@ type getProjectByIdResponse = {
 export class GetProjectByIdUseCase {
     constructor(private projectRepository: ProjectsRepository) {}
     async execute({
-        publicId,
+        publicIdProject,
     }: getProjectByIdRequest): Promise<getProjectByIdResponse> {
         try {
-            const project = await this.projectRepository.getProjectByPublicId(publicId)
+            const project = await this.projectRepository.getProjectByPublicId(publicIdProject)
             if (!project) throw new ProjectNotFound()
             return { project }
         } catch (error) {

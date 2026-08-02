@@ -13,15 +13,15 @@ const updateProjectBodyScheme = z.object({
 
 export async function updateProject(request: FastifyRequest, reply: FastifyReply) {
     try {
-        const { publicId } = z.object({ publicId: z.string() }).parse(request.params)
+        const { publicIdProject } = z.object({ publicIdProject: z.string() }).parse(request.params)
 
-        if (!z.uuid().safeParse(publicId).success) {
+        if (!z.uuid().safeParse(publicIdProject).success) {
             throw new ProjectNotFound()
         }
         const { name, description, status } = updateProjectBodyScheme.parse(request.body)
         const updateProjectCase = makeUpdateProjectUseCase()
         const { project } = await updateProjectCase.execute({
-            publicId,
+            publicIdProject,
             name,
             description,
             status

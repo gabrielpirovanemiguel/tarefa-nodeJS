@@ -4,9 +4,9 @@ import type { TaskWithUsers } from './tasks_repository.js'
 export interface ProjectsRepository {
     createProject(data: Prisma.ProjectCreateInput): Promise<Project>
     listProjects(): Promise<Project[]>
-    getProjectByPublicId(publicId: string): Promise<Project | null>
-    getTasksInProject(publicId: string): Promise<TaskWithUsers[] | null>
+    getProjectByPublicId(publicIdProject: string): Promise<Project | null>
+    getTasksInProject(publicIdProject: string): Promise<TaskWithUsers[] | null>
     getProjectById(id: number): Promise <Project | null>
-    updateProject(publicId: string, data: Prisma.ProjectUpdateInput): Promise<Project>
-    deleteProject(publicId: string): Promise<void>
+    updateProject(publicIdProject: string, data: Prisma.ProjectUpdateInput): Promise<Project>
+    deleteProject(publicIdProject: string): Promise<void>
 }

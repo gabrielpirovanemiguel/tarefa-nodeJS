@@ -11,14 +11,14 @@ export async function markTaskAsCompleted(
     reply: FastifyReply
 ) {
     try {
-        const { publicId } = z.object({ publicId: z.string() }).parse(request.params)
+        const { publicIdTask } = z.object({ publicIdTask: z.string() }).parse(request.params)
 
-        if (!z.uuid().safeParse(publicId).success) {
+        if (!z.uuid().safeParse(publicIdTask).success) {
             throw new TaskNotFound()
         }
         const payLoadUser = request.user
         const markTaskAsCompletedUseCase = makeMarkTaskAsCompletedUseCase()
-        const { task } = await markTaskAsCompletedUseCase.execute({publicId, payLoadUser})
+        const { task } = await markTaskAsCompletedUseCase.execute({ publicIdTask, payLoadUser })
 
         return reply.code(200).send(TaskPresenter.toHTTP(task))
     } catch (error) {

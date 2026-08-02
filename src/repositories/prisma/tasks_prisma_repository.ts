@@ -20,10 +20,10 @@ export class PrismaTasksRepository implements TasksRepository {
         })
     }
 
-    async getTaskByPublicId(publicId: string) {
+    async getTaskByPublicId(publicIdTask: string) {
         return await prisma.task.findUnique({
             where: {
-                publicId
+                publicId: publicIdTask
             },
             include: taskWithUsersInclude
         })
@@ -44,21 +44,21 @@ export class PrismaTasksRepository implements TasksRepository {
         })
     }
 
-    async updateTask(publicId: string, data: Prisma.TaskUncheckedUpdateInput) {
+    async updateTask(publicIdTask: string, data: Prisma.TaskUncheckedUpdateInput) {
         return await prisma.task.update({
-            where: { publicId },
+            where: { publicId: publicIdTask },
             data,
             include: taskWithUsersInclude
         })
     }
 
-    async deleteTask(publicId: string) {
-        await prisma.task.delete({ where: { publicId } })
+    async deleteTask(publicIdTask: string) {
+        await prisma.task.delete({ where: { publicId: publicIdTask } })
     }
 
-    async markTaskAsCompleted(publicId: string) {
+    async markTaskAsCompleted(publicIdTask: string) {
         return await prisma.task.update({
-            where: { publicId},
+            where: { publicId: publicIdTask},
             data: { completed: true },
             include: taskWithUsersInclude
         })
@@ -76,9 +76,9 @@ export class PrismaTasksRepository implements TasksRepository {
         return taskUser !== null
     }
 
-    async getIdByPublicId(publicId: string) {
+    async getIdByPublicId(publicIdTask: string) {
         return await prisma.task.findUnique({
-            where: { publicId },
+            where: { publicId: publicIdTask },
             select: { id: true }
         })
     }

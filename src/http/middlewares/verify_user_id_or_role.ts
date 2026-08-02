@@ -3,12 +3,12 @@ import type { FastifyReply, FastifyRequest } from 'fastify'
 
 export function verifyUserIdOrRole(allowedRoles: USER_ROLE[]) {
     return async (request: FastifyRequest, reply: FastifyReply) => {
-        const { publicId } = request.params as { publicId: string }
-        const { sub: loggedId, role } = request.user as {
+        const { publicIdResource } = request.params as { publicIdResource: string }
+        const { sub: publicIdUserLogged, role } = request.user as {
             sub: string
             role: USER_ROLE
         }
-        const isOwner = publicId === loggedId
+        const isOwner = publicIdResource === publicIdUserLogged
         const hasAllowedRole = allowedRoles.includes(role)
 
         if (!isOwner && !hasAllowedRole) {

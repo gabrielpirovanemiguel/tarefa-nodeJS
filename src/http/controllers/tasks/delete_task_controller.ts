@@ -9,13 +9,13 @@ export async function deleteTask(
     reply: FastifyReply
 ) {
     try {
-        const { publicId } = z.object({ publicId: z.string() }).parse(request.params)
+        const { publicIdTask } = z.object({ publicIdTask: z.string() }).parse(request.params)
 
-        if (!z.uuid().safeParse(publicId).success) {
+        if (!z.uuid().safeParse(publicIdTask).success) {
             throw new TaskNotFound()
         }
         const deleteTaskUseCase = makeDeleteTaskUseCase()
-        await deleteTaskUseCase.execute({publicId})
+        await deleteTaskUseCase.execute({ publicIdTask })
 
         return reply.code(204).send()
     } catch (error) {

@@ -14,11 +14,11 @@ import { deleteTaskUser } from "../task_user/delete_task_user_controller.js";
 
 export function tasksRoutes(app: FastifyInstance) {
     app.post('/',{ onRequest: [verifyJwt, verifyUserIdOrRole([USER_ROLE.admin])]}, registerTask)
-    app.post('/:publicId/assign', { onRequest: [verifyJwt, verifyUserIdOrRole([USER_ROLE.admin])]}, registerTaskUser)
-    app.get('/:publicId', { onRequest: [verifyJwt]}, getTaskById)
+    app.post('/:publicIdTask/assign', { onRequest: [verifyJwt, verifyUserIdOrRole([USER_ROLE.admin])]}, registerTaskUser)
+    app.get('/:publicIdTask', { onRequest: [verifyJwt]}, getTaskById)
     app.get('', { onRequest: [verifyJwt]}, listTasks)
-    app.put('/:publicId', { onRequest: [verifyJwt, verifyUserIdOrRole([USER_ROLE.admin])]}, updateTask)
-    app.delete('/:publicId', { onRequest: [verifyJwt, verifyUserIdOrRole([USER_ROLE.admin])]}, deleteTask)
+    app.put('/:publicIdTask', { onRequest: [verifyJwt, verifyUserIdOrRole([USER_ROLE.admin])]}, updateTask)
+    app.delete('/:publicIdTask', { onRequest: [verifyJwt, verifyUserIdOrRole([USER_ROLE.admin])]}, deleteTask)
     app.delete('/:taskId/assign/:userId', { onRequest: [verifyJwt, verifyUserIdOrRole([USER_ROLE.admin])]}, deleteTaskUser)
-    app.patch('/:publicId/complete', {onRequest: [verifyJwt]}, markTaskAsCompleted)
+    app.patch('/:publicIdTask/complete', {onRequest: [verifyJwt]}, markTaskAsCompleted)
 }

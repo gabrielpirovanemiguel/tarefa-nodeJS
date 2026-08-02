@@ -12,9 +12,9 @@ export class PrismaProjectsRepository implements ProjectsRepository {
         return await prisma.project.findMany()
     }
 
-    async getProjectByPublicId(publicId: string) {
+    async getProjectByPublicId(publicIdProject: string) {
         return await prisma.project.findUnique({
-            where: { publicId }
+            where: { publicId: publicIdProject }
         })
     }
 
@@ -24,22 +24,22 @@ export class PrismaProjectsRepository implements ProjectsRepository {
         })
     }
 
-    async updateProject(publicId: string, data: Prisma.ProjectUpdateInput): Promise<Project> {
+    async updateProject(publicIdProject: string, data: Prisma.ProjectUpdateInput): Promise<Project> {
         return await prisma.project.update({
-            where: { publicId },
+            where: { publicId: publicIdProject },
             data,
         })
     }
 
-    async deleteProject(publicId: string) {
+    async deleteProject(publicIdProject: string) {
         await prisma.project.delete({
-            where: { publicId },
+            where: { publicId: publicIdProject },
         })
     }
 
-    async getTasksInProject(publicId: string) {
+    async getTasksInProject(publicIdProject: string) {
         const project = await prisma.project.findUnique({
-            where: { publicId },
+            where: { publicId: publicIdProject },
             include: { tasks: {include: taskWithUsersInclude} },
         })
 

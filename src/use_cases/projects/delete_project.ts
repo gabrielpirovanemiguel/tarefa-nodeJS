@@ -5,22 +5,22 @@ import type { TasksRepository } from "@/repositories/tasks_repository.js"
 
 
 interface deleteProjectRequest {
-    publicId: string
+    publicIdProject: string
 }
 
 export class DeleteProjectUseCase {
     constructor(private projectRepository: ProjectsRepository,
                 private tasksRepository: TasksRepository
     ) { }
-    async execute({ publicId }: deleteProjectRequest): Promise<void> {
+    async execute({ publicIdProject }: deleteProjectRequest): Promise<void> {
         try {
-            const projectToDelete = await this.projectRepository.getProjectByPublicId(publicId)
+            const projectToDelete = await this.projectRepository.getProjectByPublicId(publicIdProject)
             if (!projectToDelete) throw new ProjectNotFound()
 
             const taskCount = await this.tasksRepository.countByProjectId(projectToDelete.id)
             if (taskCount > 0) throw new ProjectHasAssociatedTasksError()
 
-            await this.projectRepository.deleteProject(publicId)
+            await this.projectRepository.deleteProject(publicIdProject)
         } catch (error) {
             throw error
         }

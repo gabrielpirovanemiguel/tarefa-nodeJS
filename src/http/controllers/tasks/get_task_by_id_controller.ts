@@ -7,15 +7,15 @@ import z from "zod"
 
 export async function getTaskById(request: FastifyRequest, reply: FastifyReply) {
     try {
-        const { publicId } = z.object({ publicId: z.string() }).parse(request.params)
+        const { publicIdTask } = z.object({ publicIdTask: z.string() }).parse(request.params)
 
-        if (!z.uuid().safeParse(publicId).success) {
+        if (!z.uuid().safeParse(publicIdTask).success) {
             throw new TaskNotFound()
         }
 
         const getTaskUseCase = makeGetTaskByIdUseCase()
 
-        const { task } = await getTaskUseCase.execute({ publicId })
+        const { task } = await getTaskUseCase.execute({ publicIdTask })
         return reply.status(200).send(TaskPresenter.toHTTP(task))
     } catch (error) {
         if (error instanceof TaskNotFound) {

@@ -5,7 +5,7 @@ import type { UsersRepository } from '@/repositories/users_repository.js'
 import { UserNotFound } from '../errors/user_not_found.js'
 
 export interface UpdateUserUseCaseRequest {
-    publicId: string
+    publicIdUser: string
     name?: string
     password?: string
 }
@@ -18,13 +18,13 @@ export class UpdateUserUseCase {
     constructor(private usersRepository: UsersRepository) {}
 
     async execute({
-        publicId,
+        publicIdUser,
         name,
         password,
     }: UpdateUserUseCaseRequest): Promise<UpdateUserUseCaseResponse> {
         try {
             const userToUpdate =
-                await this.usersRepository.getUserByPublicId(publicId)
+                await this.usersRepository.getUserByPublicId(publicIdUser)
             if (!userToUpdate) throw new UserNotFound()
 
             let passwordHash

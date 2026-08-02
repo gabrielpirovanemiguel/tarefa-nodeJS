@@ -21,9 +21,9 @@ export async function updateTask(
     reply: FastifyReply
 ) {
     try {
-        const { publicId } = z.object({ publicId: z.string() }).parse(request.params)
+        const { publicIdTask } = z.object({ publicIdTask: z.string() }).parse(request.params)
 
-        if (!z.uuid().safeParse(publicId).success) {
+        if (!z.uuid().safeParse(publicIdTask).success) {
             throw new TaskNotFound()
         }
         const { title, description, priority, completed, deadline, projectId } = updateTaskBodySchema.parse(request.body)
@@ -31,7 +31,7 @@ export async function updateTask(
         const updateTaskUseCase = makeUpdateTaskUseCase()
 
         const { task } = await updateTaskUseCase.execute({
-            publicId,
+            publicIdTask,
             title,
             description,
             priority,

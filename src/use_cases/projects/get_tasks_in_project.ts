@@ -3,7 +3,7 @@ import { ProjectNotFound } from '../errors/project_not_found.js'
 import type { TaskWithUsers } from '@/repositories/tasks_repository.js'
 
 interface getTasksInProjectRequest {
-    publicId: string
+    publicIdProject: string
 }
 
 type getTasksInProjectResponse = {
@@ -13,10 +13,10 @@ type getTasksInProjectResponse = {
 export class GetTasksInProjectUseCase {
     constructor(private projectsRepository: ProjectsRepository) { }
     async execute({
-        publicId,
+        publicIdProject,
     }: getTasksInProjectRequest): Promise<getTasksInProjectResponse> {
         try {
-            const tasks = await this.projectsRepository.getTasksInProject(publicId)
+            const tasks = await this.projectsRepository.getTasksInProject(publicIdProject)
             if (tasks === null) throw new ProjectNotFound()
             return { tasks }
         } catch (error) {

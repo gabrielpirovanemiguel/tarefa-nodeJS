@@ -11,7 +11,7 @@ export async function registerTaskUser(
     reply: FastifyReply
 ) {
     try {
-        const { publicId: publicIdTask } = z.object({ publicId: z.string() }).parse(request.params)
+        const { publicIdTask } = z.object({ publicIdTask: z.string() }).parse(request.params)
         if (!z.uuid().safeParse(publicIdTask).success) {
             throw new TaskNotFound()
         }

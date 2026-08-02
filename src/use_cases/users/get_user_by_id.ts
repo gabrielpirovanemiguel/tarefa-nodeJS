@@ -3,7 +3,7 @@ import type { UsersRepository } from '@/repositories/users_repository.js'
 import { UserNotFound } from '../errors/user_not_found.js'
 
 interface getUserByIdRequest {
-    publicId: string
+    publicIdUser: string
 }
 
 type getUserByIdResponse = {
@@ -13,10 +13,10 @@ type getUserByIdResponse = {
 export class GetByIdUseCase {
     constructor(private userRepository: UsersRepository) {}
     async execute({
-        publicId,
+        publicIdUser,
     }: getUserByIdRequest): Promise<getUserByIdResponse> {
         try {
-            const user = await this.userRepository.getUserByPublicId(publicId)
+            const user = await this.userRepository.getUserByPublicId(publicIdUser)
             if (!user) throw new UserNotFound()
             return { user }
         } catch (error) {

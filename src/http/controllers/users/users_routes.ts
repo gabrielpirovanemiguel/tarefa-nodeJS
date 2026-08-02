@@ -11,15 +11,15 @@ import { getTasksWithUser } from './get_tasks_with_user_controller.js'
 
 export async function usersRoutes(app: FastifyInstance) {
     app.get('', { onRequest: [verifyJwt] }, listUsers)
-    app.get('/:publicId', { onRequest: [verifyJwt] }, getUserById)
-    app.get('/:publicId/tasks', { onRequest: [verifyJwt] }, getTasksWithUser)
+    app.get('/:publicIdUser', { onRequest: [verifyJwt] }, getUserById)
+    app.get('/:publicIdUser/tasks', { onRequest: [verifyJwt] }, getTasksWithUser)
     app.put(
-        '/:publicId',
+        '/:publicIdUser',
         { onRequest: [verifyJwt, verifyUserIdOrRole([USER_ROLE.admin])] },
         updateUser,
     )
     app.delete(
-        '/:publicId',
+        '/:publicIdUser',
         { onRequest: [verifyJwt, verifyRole([USER_ROLE.admin])] },
         deleteUser,
     )

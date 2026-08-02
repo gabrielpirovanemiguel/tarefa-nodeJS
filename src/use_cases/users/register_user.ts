@@ -27,7 +27,7 @@ export class RegisterUserUseCase {
     }: RegisterUserUseCaseRequest): Promise<RegisterUserUseCaseResponse> {
         try {
             const userWithSameEmail =
-                await this.usersRepository.findByEmail(email)
+                await this.usersRepository.findUserByEmail(email)
 
             if (userWithSameEmail) {
                 throw new EmailAlreadyInUse()
@@ -35,7 +35,7 @@ export class RegisterUserUseCase {
 
             const passwordHash = await hash(password, env.HASH_SALT_ROUNDS)
 
-            const user = await this.usersRepository.create({
+            const user = await this.usersRepository.createUser({
                 email,
                 name,
                 passwordHash,

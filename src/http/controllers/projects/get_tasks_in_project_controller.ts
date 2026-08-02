@@ -9,9 +9,9 @@ export async function getTasksInProject(
     reply: FastifyReply,
 ) {
     try {
-        const { publicId } = z.object({ publicId: z.string() }).parse(request.params)
+        const { publicIdProject } = z.object({ publicIdProject: z.string() }).parse(request.params)
         const getTasksInProjectUseCase = makeGetTasksInProjectUseCase()
-        const { tasks } = await getTasksInProjectUseCase.execute({ publicId })
+        const { tasks } = await getTasksInProjectUseCase.execute({ publicIdProject })
 
         return reply.status(200).send(TaskPresenter.toHTTP(tasks!))
     } catch (error) {

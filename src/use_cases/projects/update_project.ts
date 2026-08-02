@@ -4,7 +4,7 @@ import { ProjectNotFound } from '../errors/project_not_found.js'
 
 
 export interface UpdateProjectUseCaseRequest {
-    publicId: string
+    publicIdProject: string
     name?: string
     description?: string
     status?: STATUS | undefined
@@ -18,13 +18,13 @@ export class UpdateProjectUseCase {
     constructor(private projectsRepository: ProjectsRepository) {}
 
     async execute({
-        publicId,
+        publicIdProject,
         name,
         description,
         status
     }: UpdateProjectUseCaseRequest): Promise<UpdateProjectUseCaseResponse> {
         try {
-            const ProjectToUpdate = await this.projectsRepository.getProjectByPublicId(publicId)
+            const ProjectToUpdate = await this.projectsRepository.getProjectByPublicId(publicIdProject)
             if (!ProjectToUpdate) throw new ProjectNotFound()
 
 

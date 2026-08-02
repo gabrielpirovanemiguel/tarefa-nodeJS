@@ -9,9 +9,9 @@ export async function getTasksWithUser(
     reply: FastifyReply,
 ) {
     try {
-        const { publicId } = z.object({publicId: z.string()}).parse(request.params)
+        const { publicIdUser } = z.object({ publicIdUser: z.string() }).parse(request.params)
         const getTasksWithUserUseCase = makeGetTasksWithUserUseCase()
-        const {tasks} = await getTasksWithUserUseCase.execute({ publicId: publicId })
+        const { tasks } = await getTasksWithUserUseCase.execute({ publicIdUser })
         return reply.status(200).send(TaskPresenter.toHTTP(tasks))
     } catch (error) {
         if (error instanceof UserNotFound) {

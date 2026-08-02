@@ -1,8 +1,11 @@
-import type { PRIORITY } from "@/@types/prisma/client.js"
-import type { ProjectsRepository } from "@/repositories/projects_repository.js"
-import type { TasksRepository, TaskWithUsers } from "@/repositories/tasks_repository.js"
-import { ProjectNotFound } from "../errors/project_not_found.js"
-import { TaskNotFound } from "../errors/task_not_found.js"
+import type { PRIORITY } from '@/@types/prisma/client.js'
+import type { ProjectsRepository } from '@/repositories/projects_repository.js'
+import type {
+    TasksRepository,
+    TaskWithUsers,
+} from '@/repositories/tasks_repository.js'
+import { ProjectNotFound } from '../errors/project_not_found.js'
+import { TaskNotFound } from '../errors/task_not_found.js'
 
 interface UpdateTaskUseCaseRequest {
     publicIdTask: string
@@ -21,8 +24,8 @@ interface UpdateTaskUseCaseResponse {
 export class UpdateTaskUseCase {
     constructor(
         private tasksRepository: TasksRepository,
-        private projectsRepository: ProjectsRepository
-    ) { }
+        private projectsRepository: ProjectsRepository,
+    ) {}
     async execute({
         publicIdTask,
         title,
@@ -30,27 +33,27 @@ export class UpdateTaskUseCase {
         priority,
         completed,
         deadline,
-        projectId
+        projectId,
     }: UpdateTaskUseCaseRequest): Promise<UpdateTaskUseCaseResponse> {
         try {
             if (projectId) {
-                const doesProjectIdToUpdateExist = await this.projectsRepository.getProjectById(projectId)
+                const doesProjectIdToUpdateExist =
+                    await this.projectsRepository.getProjectById(projectId)
                 if (!doesProjectIdToUpdateExist) throw new ProjectNotFound()
             }
 
-            const doesTaskToUpdateExist = await this.tasksRepository.getTaskByPublicId(publicIdTask)
+            const doesTaskToUpdateExist =
+                await this.tasksRepository.getTaskByPublicId(publicIdTask)
             if (!doesTaskToUpdateExist) throw new TaskNotFound()
 
-            const task = await this.tasksRepository.updateTask(
-                publicIdTask, {
+            const task = await this.tasksRepository.updateTask(publicIdTask, {
                 title,
                 description,
                 priority,
                 completed,
                 deadline,
-                projectId
-            }
-            )
+                projectId,
+            })
 
             return { task }
         } catch (error) {

@@ -1,6 +1,4 @@
-import type { TaskUser } from "@/@types/prisma/browser.js"
-
-
+import type { TaskUser } from '@/@types/prisma/browser.js'
 
 export interface TaskUserRepository {
     createTaskUser(idTask: number, idUsers: number[]): Promise<void>

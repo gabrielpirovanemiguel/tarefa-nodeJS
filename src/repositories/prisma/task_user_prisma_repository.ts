@@ -1,6 +1,5 @@
-import { prisma } from "@/libs/prisma.js";
-import type { TaskUserRepository } from "../task_user_repository.js";
-
+import { prisma } from '@/libs/prisma.js'
+import type { TaskUserRepository } from '../task_user_repository.js'
 
 export class PrismaTaskUserRepository implements TaskUserRepository {
     async createTaskUser(idTask: number, idUsers: number[]) {
@@ -31,8 +30,7 @@ export class PrismaTaskUserRepository implements TaskUserRepository {
 
     async findTaskUserByUserIds(idUser: number) {
         return await prisma.taskUser.findMany({
-            where: { userId: idUser }
+            where: { userId: idUser },
         })
     }
-
 }

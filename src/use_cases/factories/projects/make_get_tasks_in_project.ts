@@ -3,6 +3,8 @@ import { GetTasksInProjectUseCase } from '@/use_cases/projects/get_tasks_in_proj
 
 export function makeGetTasksInProjectUseCase() {
     const projectsRepository = new PrismaProjectsRepository()
-    const getTasksInProjectUseCase = new GetTasksInProjectUseCase(projectsRepository)
+    const getTasksInProjectUseCase = new GetTasksInProjectUseCase(
+        projectsRepository,
+    )
     return getTasksInProjectUseCase
 }

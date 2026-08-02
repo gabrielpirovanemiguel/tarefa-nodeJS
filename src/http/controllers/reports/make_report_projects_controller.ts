@@ -7,7 +7,7 @@ export async function makeReportProjects(
 ) {
     try {
         const makeReport = makeReportUseCase()
-        const { reports }  = await makeReport.execute()
+        const { reports } = await makeReport.execute()
         return reply.status(200).send(reports)
     } catch (error) {
         throw error

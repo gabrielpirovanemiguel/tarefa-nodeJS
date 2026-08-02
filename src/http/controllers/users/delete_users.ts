@@ -5,7 +5,9 @@ import { makeDeleteUserUseCase } from '@/use_cases/factories/users/male_delete_u
 
 export async function deleteUser(request: FastifyRequest, reply: FastifyReply) {
     try {
-        const { publicIdUser } = z.object({ publicIdUser: z.string() }).parse(request.params)
+        const { publicIdUser } = z
+            .object({ publicIdUser: z.string() })
+            .parse(request.params)
         const deleteUserCase = makeDeleteUserUseCase()
         await deleteUserCase.execute({ publicIdUser })
 

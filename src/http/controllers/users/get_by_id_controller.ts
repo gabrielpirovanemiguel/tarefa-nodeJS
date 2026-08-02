@@ -4,9 +4,14 @@ import z from 'zod'
 import { makeGetUserByIdUseCase } from '@/use_cases/factories/users/make_get_by_id.js'
 import { UserNotFound } from '@/use_cases/errors/user_not_found.js'
 
-export async function getUserById(request: FastifyRequest, reply: FastifyReply) {
+export async function getUserById(
+    request: FastifyRequest,
+    reply: FastifyReply,
+) {
     try {
-        const { publicIdUser } = z.object({ publicIdUser: z.string() }).parse(request.params)
+        const { publicIdUser } = z
+            .object({ publicIdUser: z.string() })
+            .parse(request.params)
         const getByIdUseCase = makeGetUserByIdUseCase()
         const { user } = await getByIdUseCase.execute({ publicIdUser })
 

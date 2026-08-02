@@ -1,9 +1,6 @@
 import type { PRIORITY, Task } from '@/@types/prisma/client.js'
 import type { TaskWithUsers } from '@/repositories/tasks_repository.js'
 
-
-
-
 type HTTPTaskWithUser = {
     id: string
     title: string
@@ -37,7 +34,9 @@ type HTTPTasks = {
 export class TaskPresenter {
     static toHTTP(task: TaskWithUsers): HTTPTaskWithUser
     static toHTTP(tasks: TaskWithUsers[]): HTTPTaskWithUser[]
-    static toHTTP(input: TaskWithUsers | TaskWithUsers[]): HTTPTaskWithUser | HTTPTaskWithUser[] {
+    static toHTTP(
+        input: TaskWithUsers | TaskWithUsers[],
+    ): HTTPTaskWithUser | HTTPTaskWithUser[] {
         if (Array.isArray(input)) {
             return input.map((p) => this.toHTTP(p))
         }
@@ -56,8 +55,8 @@ export class TaskPresenter {
                 id: tu.user.publicId,
                 name: tu.user.name,
                 email: tu.user.email,
-                role: tu.user.role
-            }))
+                role: tu.user.role,
+            })),
         }
     }
 }

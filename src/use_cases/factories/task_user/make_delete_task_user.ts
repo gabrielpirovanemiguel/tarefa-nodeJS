@@ -1,8 +1,7 @@
-import { PrismaTaskUserRepository } from "@/repositories/prisma/task_user_prisma_repository.js"
-import { PrismaTasksRepository } from "@/repositories/prisma/tasks_prisma_repository.js"
-import { PrismaUsersRepository } from "@/repositories/prisma/users_prisma_repository.js"
-import { DeleteTaskUserUseCase } from "@/use_cases/task_user/delete_task_user.js"
-
+import { PrismaTaskUserRepository } from '@/repositories/prisma/task_user_prisma_repository.js'
+import { PrismaTasksRepository } from '@/repositories/prisma/tasks_prisma_repository.js'
+import { PrismaUsersRepository } from '@/repositories/prisma/users_prisma_repository.js'
+import { DeleteTaskUserUseCase } from '@/use_cases/task_user/delete_task_user.js'
 
 export function makeDeleteTaskUserUseCase() {
     const tasksRepository = new PrismaTasksRepository()
@@ -11,7 +10,7 @@ export function makeDeleteTaskUserUseCase() {
     const deleteTaskUserUseCase = new DeleteTaskUserUseCase(
         taskUserRepository,
         tasksRepository,
-        userRepository
+        userRepository,
     )
     return deleteTaskUserUseCase
 }

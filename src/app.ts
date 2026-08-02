@@ -18,7 +18,9 @@ app.register(appRoutes)
 
 app.setErrorHandler((error, _request, reply) => {
     if (error instanceof ZodError) {
-        return reply.status(400).send({message: z.prettifyError(error).replace('\n ', '')})
+        return reply
+            .status(400)
+            .send({ message: z.prettifyError(error).replace('\n ', '') })
     }
 
     if (error instanceof SyntaxError) {
@@ -28,5 +30,7 @@ app.setErrorHandler((error, _request, reply) => {
         })
     }
 
-    return reply.status(500).send({ message: 'Erro interno do servidor!' + error.message })
+    return reply
+        .status(500)
+        .send({ message: 'Erro interno do servidor!' + error.message })
 })

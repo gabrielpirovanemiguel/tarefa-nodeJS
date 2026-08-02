@@ -11,16 +11,23 @@ const updateProjectBodyScheme = z.object({
     status: statusSchemaThrowError.optional(),
 })
 
-export async function updateProject(request: FastifyRequest, reply: FastifyReply) {
+export async function updateProject(
+    request: FastifyRequest,
+    reply: FastifyReply,
+) {
     try {
-        const { publicIdProject } = z.object({ publicIdProject: z.string() }).parse(request.params)
-        const { name, description, status } = updateProjectBodyScheme.parse(request.body)
+        const { publicIdProject } = z
+            .object({ publicIdProject: z.string() })
+            .parse(request.params)
+        const { name, description, status } = updateProjectBodyScheme.parse(
+            request.body,
+        )
         const updateProject = makeUpdateProjectUseCase()
         const { project } = await updateProject.execute({
             publicIdProject,
             name,
             description,
-            status
+            status,
         })
 
         return reply.status(200).send(ProjectPresenter.toHTTP(project))

@@ -16,7 +16,8 @@ export class GetByIdUseCase {
         publicIdUser,
     }: getUserByIdRequestUseCase): Promise<getUserByIdResponseUseCase> {
         try {
-            const user = await this.userRepository.getUserByPublicId(publicIdUser)
+            const user =
+                await this.userRepository.getUserByPublicId(publicIdUser)
             if (!user) throw new UserNotFound()
             return { user }
         } catch (error) {

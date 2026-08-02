@@ -2,7 +2,6 @@ import type { Project, STATUS } from '@/@types/prisma/client.js'
 import type { ProjectsRepository } from '@/repositories/projects_repository.js'
 import { ProjectNotFound } from '../errors/project_not_found.js'
 
-
 export interface UpdateProjectUseCaseRequest {
     publicIdProject: string
     name?: string
@@ -21,12 +20,14 @@ export class UpdateProjectUseCase {
         publicIdProject,
         name,
         description,
-        status
+        status,
     }: UpdateProjectUseCaseRequest): Promise<UpdateProjectUseCaseResponse> {
         try {
-            const ProjectToUpdate = await this.projectsRepository.getProjectByPublicId(publicIdProject)
+            const ProjectToUpdate =
+                await this.projectsRepository.getProjectByPublicId(
+                    publicIdProject,
+                )
             if (!ProjectToUpdate) throw new ProjectNotFound()
-
 
             const project = await this.projectsRepository.updateProject(
                 ProjectToUpdate.publicId,

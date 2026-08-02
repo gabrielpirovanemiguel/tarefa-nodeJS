@@ -1,6 +1,9 @@
 import type { PRIORITY } from '@/@types/prisma/enums.js'
 import type { ProjectsRepository } from '@/repositories/projects_repository.js'
-import type { TasksRepository, TaskWithUsers } from '@/repositories/tasks_repository.js'
+import type {
+    TasksRepository,
+    TaskWithUsers,
+} from '@/repositories/tasks_repository.js'
 import { ProjectNotFound } from '../errors/project_not_found.js'
 
 interface RegisterTaskUseCaseRequest {
@@ -17,8 +20,9 @@ type RegisterTaskUseCaseResponse = {
 }
 
 export class RegisterTaskUseCase {
-    constructor(private tasksRepository: TasksRepository, 
-                private projectsRepository: ProjectsRepository
+    constructor(
+        private tasksRepository: TasksRepository,
+        private projectsRepository: ProjectsRepository,
     ) {}
     async execute({
         title,
@@ -26,10 +30,13 @@ export class RegisterTaskUseCase {
         priority,
         completed,
         deadline,
-        project: publicIdProject
+        project: publicIdProject,
     }: RegisterTaskUseCaseRequest): Promise<RegisterTaskUseCaseResponse> {
         try {
-            const doesProjectExist = await this.projectsRepository.getProjectByPublicId(publicIdProject)
+            const doesProjectExist =
+                await this.projectsRepository.getProjectByPublicId(
+                    publicIdProject,
+                )
             if (!doesProjectExist) throw new ProjectNotFound()
             const projectId = doesProjectExist.id
 
@@ -39,7 +46,7 @@ export class RegisterTaskUseCase {
                 priority,
                 completed,
                 deadline,
-                projectId
+                projectId,
             })
             return { task }
         } catch (error) {

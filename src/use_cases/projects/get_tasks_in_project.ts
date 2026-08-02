@@ -11,12 +11,13 @@ type getTasksInProjectUseCaseResponse = {
 }
 
 export class GetTasksInProjectUseCase {
-    constructor(private projectsRepository: ProjectsRepository) { }
+    constructor(private projectsRepository: ProjectsRepository) {}
     async execute({
         publicIdProject,
     }: getTasksInProjectUseCaseRequest): Promise<getTasksInProjectUseCaseResponse> {
         try {
-            const tasks = await this.projectsRepository.getTasksInProject(publicIdProject)
+            const tasks =
+                await this.projectsRepository.getTasksInProject(publicIdProject)
             if (tasks === null) throw new ProjectNotFound()
             return { tasks }
         } catch (error) {

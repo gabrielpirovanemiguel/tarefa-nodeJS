@@ -1,8 +1,7 @@
-import { PrismaTaskUserRepository } from "@/repositories/prisma/task_user_prisma_repository.js"
-import { PrismaTasksRepository } from "@/repositories/prisma/tasks_prisma_repository.js"
-import { PrismaUsersRepository } from "@/repositories/prisma/users_prisma_repository.js"
-import { GetTasksWithUserUseCase } from "@/use_cases/users/get_tasks_with_user.js"
-
+import { PrismaTaskUserRepository } from '@/repositories/prisma/task_user_prisma_repository.js'
+import { PrismaTasksRepository } from '@/repositories/prisma/tasks_prisma_repository.js'
+import { PrismaUsersRepository } from '@/repositories/prisma/users_prisma_repository.js'
+import { GetTasksWithUserUseCase } from '@/use_cases/users/get_tasks_with_user.js'
 
 export function makeGetTasksWithUserUseCase() {
     const tasksRepository = new PrismaTasksRepository()
@@ -11,7 +10,7 @@ export function makeGetTasksWithUserUseCase() {
     const getTasksWithUserUseCase = new GetTasksWithUserUseCase(
         taskUserRepository,
         tasksRepository,
-        userRepository
+        userRepository,
     )
     return getTasksWithUserUseCase
 }

@@ -16,11 +16,16 @@ export class PrismaUsersRepository implements UsersRepository {
     }
 
     async getUserIdByPublicId(publicIdUser: string) {
-        return await prisma.user.findUnique({where: { publicId: publicIdUser }, select: {id: true}})
+        return await prisma.user.findUnique({
+            where: { publicId: publicIdUser },
+            select: { id: true },
+        })
     }
 
     async getUserByPublicId(publicIdUser: string) {
-        return await prisma.user.findUnique({ where: { publicId: publicIdUser } })
+        return await prisma.user.findUnique({
+            where: { publicId: publicIdUser },
+        })
     }
 
     async updateUser(publicIdUser: string, data: Prisma.UserUpdateInput) {
@@ -36,8 +41,7 @@ export class PrismaUsersRepository implements UsersRepository {
 
     async findManyUsersByPublicIds(publicIdUsers: string[]) {
         return await prisma.user.findMany({
-            where: { publicId: { in: publicIdUsers } }
+            where: { publicId: { in: publicIdUsers } },
         })
     }
-
 }

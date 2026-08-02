@@ -4,9 +4,14 @@ import { makeDeleteProjectUseCase } from '@/use_cases/factories/projects/make_de
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import z from 'zod'
 
-export async function deleteProject(request: FastifyRequest, reply: FastifyReply) {
+export async function deleteProject(
+    request: FastifyRequest,
+    reply: FastifyReply,
+) {
     try {
-        const { publicIdProject } = z.object({ publicIdProject: z.string() }).parse(request.params)
+        const { publicIdProject } = z
+            .object({ publicIdProject: z.string() })
+            .parse(request.params)
         const deleteProject = makeDeleteProjectUseCase()
         await deleteProject.execute({ publicIdProject })
 

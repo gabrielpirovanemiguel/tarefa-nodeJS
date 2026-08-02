@@ -14,17 +14,20 @@ export class PrismaProjectsRepository implements ProjectsRepository {
 
     async getProjectByPublicId(publicIdProject: string) {
         return await prisma.project.findUnique({
-            where: { publicId: publicIdProject }
+            where: { publicId: publicIdProject },
         })
     }
 
     async getProjectById(id: number) {
         return await prisma.project.findUnique({
-            where: { id }
+            where: { id },
         })
     }
 
-    async updateProject(publicIdProject: string, data: Prisma.ProjectUpdateInput): Promise<Project> {
+    async updateProject(
+        publicIdProject: string,
+        data: Prisma.ProjectUpdateInput,
+    ): Promise<Project> {
         return await prisma.project.update({
             where: { publicId: publicIdProject },
             data,
@@ -40,7 +43,7 @@ export class PrismaProjectsRepository implements ProjectsRepository {
     async getTasksInProject(publicIdProject: string) {
         const project = await prisma.project.findUnique({
             where: { publicId: publicIdProject },
-            include: { tasks: {include: taskWithUsersInclude} },
+            include: { tasks: { include: taskWithUsersInclude } },
         })
 
         return project?.tasks ?? null

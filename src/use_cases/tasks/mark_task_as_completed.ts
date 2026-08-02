@@ -1,12 +1,14 @@
-import type { TasksRepository, TaskWithUsers } from "@/repositories/tasks_repository.js"
-import { TaskNotFound } from "../errors/task_not_found.js"
-import { InvalidPermissions } from "../errors/invalid_permissions_error.js"
-import { USER_ROLE } from "@/@types/prisma/browser.js"
+import type {
+    TasksRepository,
+    TaskWithUsers,
+} from '@/repositories/tasks_repository.js'
+import { TaskNotFound } from '../errors/task_not_found.js'
+import { InvalidPermissions } from '../errors/invalid_permissions_error.js'
+import { USER_ROLE } from '@/@types/prisma/browser.js'
 
 interface MarkTaskAsCompletedUseCaseRequest {
     publicIdTask: string
-    payLoadUser: {sub: string, role: string}
-
+    payLoadUser: { sub: string; role: string }
 }
 
 type MarkTaskAsCompletedUseCaseReply = {
@@ -15,17 +17,26 @@ type MarkTaskAsCompletedUseCaseReply = {
 
 export class MarkTaskAsCompletedUseCase {
     constructor(private tasksRepository: TasksRepository) {}
-    async execute({ publicIdTask, payLoadUser }: MarkTaskAsCompletedUseCaseRequest): Promise<MarkTaskAsCompletedUseCaseReply>{
+    async execute({
+        publicIdTask,
+        payLoadUser,
+    }: MarkTaskAsCompletedUseCaseRequest): Promise<MarkTaskAsCompletedUseCaseReply> {
         try {
-            const taskToMark = await this.tasksRepository.getTaskByPublicId(publicIdTask)
+            const taskToMark =
+                await this.tasksRepository.getTaskByPublicId(publicIdTask)
             if (!taskToMark) throw new TaskNotFound()
             const { sub: publicIdUser, role } = payLoadUser
 
-            const isUserInTask = await this.tasksRepository.findUserInTask(publicIdUser, publicIdTask)
-            if (!isUserInTask && role !== USER_ROLE.admin) throw new InvalidPermissions()
-            const task = await this.tasksRepository.markTaskAsCompleted(publicIdTask)
+            const isUserInTask = await this.tasksRepository.findUserInTask(
+                publicIdUser,
+                publicIdTask,
+            )
+            if (!isUserInTask && role !== USER_ROLE.admin)
+                throw new InvalidPermissions()
+            const task =
+                await this.tasksRepository.markTaskAsCompleted(publicIdTask)
             return { task }
-        } catch(error) {
+        } catch (error) {
             throw error
         }
     }

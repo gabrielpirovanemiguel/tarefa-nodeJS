@@ -22,10 +22,6 @@ export async function updateTask(
 ) {
     try {
         const { publicIdTask } = z.object({ publicIdTask: z.string() }).parse(request.params)
-
-        if (!z.uuid().safeParse(publicIdTask).success) {
-            throw new TaskNotFound()
-        }
         const { title, description, priority, completed, deadline, projectId } = updateTaskBodySchema.parse(request.body)
 
         const updateTaskUseCase = makeUpdateTaskUseCase()

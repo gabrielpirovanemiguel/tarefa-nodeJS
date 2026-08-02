@@ -19,8 +19,6 @@ export async function listTasks(request: FastifyRequest, reply: FastifyReply) {
         const query = listTaskQuerySchema.parse(request.query)
         const listTasks = makeListTasksUseCase()
         const { tasks } = await listTasks.execute({ query })
-
-
         return reply.status(200).send(TaskPresenter.toHTTP(tasks))
     } catch (error) {
         throw error

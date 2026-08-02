@@ -7,10 +7,6 @@ import z from 'zod'
 export async function deleteProject(request: FastifyRequest, reply: FastifyReply) {
     try {
         const { publicIdProject } = z.object({ publicIdProject: z.string() }).parse(request.params)
-
-        if (!z.uuid().safeParse(publicIdProject).success) {
-            throw new ProjectNotFound()
-        }
         const deleteProject = makeDeleteProjectUseCase()
         await deleteProject.execute({ publicIdProject })
 

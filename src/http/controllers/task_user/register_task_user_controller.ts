@@ -12,9 +12,6 @@ export async function registerTaskUser(
 ) {
     try {
         const { publicIdTask } = z.object({ publicIdTask: z.string() }).parse(request.params)
-        if (!z.uuid().safeParse(publicIdTask).success) {
-            throw new TaskNotFound()
-        }
         const { userIds } = z.object({
             userIds: z.array(z.uuid({ error: 'Um dos ids de usuário informados é inválido.' })).min(1, { error: 'Informe pelo menos um usuário.' })
         }).parse(request.body)

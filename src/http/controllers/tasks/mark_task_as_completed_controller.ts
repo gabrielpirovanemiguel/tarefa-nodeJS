@@ -12,10 +12,6 @@ export async function markTaskAsCompleted(
 ) {
     try {
         const { publicIdTask } = z.object({ publicIdTask: z.string() }).parse(request.params)
-
-        if (!z.uuid().safeParse(publicIdTask).success) {
-            throw new TaskNotFound()
-        }
         const payLoadUser = request.user
         const markTaskAsCompleted = makeMarkTaskAsCompletedUseCase()
         const { task } = await markTaskAsCompleted.execute({ publicIdTask, payLoadUser })

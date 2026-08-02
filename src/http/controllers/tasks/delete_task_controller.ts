@@ -10,10 +10,6 @@ export async function deleteTask(
 ) {
     try {
         const { publicIdTask } = z.object({ publicIdTask: z.string() }).parse(request.params)
-
-        if (!z.uuid().safeParse(publicIdTask).success) {
-            throw new TaskNotFound()
-        }
         const deleteTask = makeDeleteTaskUseCase()
         await deleteTask.execute({ publicIdTask })
 

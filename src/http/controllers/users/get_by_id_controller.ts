@@ -7,10 +7,6 @@ import { UserNotFound } from '@/use_cases/errors/user_not_found.js'
 export async function getUserById(request: FastifyRequest, reply: FastifyReply) {
     try {
         const { publicIdUser } = z.object({ publicIdUser: z.string() }).parse(request.params)
-
-        if (!z.uuid().safeParse(publicIdUser).success) {
-            throw new UserNotFound()
-        }
         const getByIdUseCase = makeGetUserByIdUseCase()
         const { user } = await getByIdUseCase.execute({ publicIdUser })
 

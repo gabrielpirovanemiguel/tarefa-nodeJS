@@ -10,10 +10,6 @@ export async function getProjectById(
 ) {
     try {
         const { publicIdProject } = z.object({ publicIdProject: z.string() }).parse(request.params)
-
-        if (!z.uuid().safeParse(publicIdProject).success) {
-            throw new ProjectNotFound()
-        }
         const getById = makeGetProjectByIdUseCase()
         const { project } = await getById.execute({ publicIdProject })
 

@@ -8,13 +8,7 @@ import z from "zod"
 export async function getTaskById(request: FastifyRequest, reply: FastifyReply) {
     try {
         const { publicIdTask } = z.object({ publicIdTask: z.string() }).parse(request.params)
-
-        if (!z.uuid().safeParse(publicIdTask).success) {
-            throw new TaskNotFound()
-        }
-
         const getTask = makeGetTaskByIdUseCase()
-
         const { task } = await getTask.execute({ publicIdTask })
         return reply.status(200).send(TaskPresenter.toHTTP(task))
     } catch (error) {

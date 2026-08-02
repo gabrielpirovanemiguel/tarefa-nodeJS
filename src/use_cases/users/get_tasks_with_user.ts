@@ -1,9 +1,7 @@
-import type { ProjectsRepository } from '@/repositories/projects_repository.js'
-import { ProjectNotFound } from '../errors/project_not_found.js'
-import type { TaskWithUsers } from '@/repositories/tasks_repository.js'
 import type { TaskUserRepository } from '@/repositories/task_user_repository.js'
 import type { UsersRepository } from '@/repositories/users_repository.js'
-import { UsersNotFound } from '../errors/users_not_found.js'
+import type { TasksRepository, TaskWithUsers } from '@/repositories/tasks_repository.js'
+import { UserNotFound } from '../errors/user_not_found.js'
 
 interface getTasksWithUserRequest {
     publicId: string
@@ -16,6 +14,7 @@ type getTasksWithUserResponse = {
 export class GetTasksWithUserUseCase {
     constructor(
         private taskUserRepository: TaskUserRepository,
+        private tasksRepository: TasksRepository,
         private usersRepository: UsersRepository
     ) { }
     async execute({
@@ -23,8 +22,13 @@ export class GetTasksWithUserUseCase {
     }: getTasksWithUserRequest): Promise<getTasksWithUserResponse> {
         try {
             const user = await this.usersRepository.getUserByPublicId(publicId)
-            if (!user) throw new UsersNotFound()
-            const tasks = await this.taskUserRepository.findTaskUserByUserId(user.id)
+            if (!user) throw new UserNotFound()
+            const taskUser = await this.taskUserRepository.findTaskUserByUserIds(user.id)
+            const tasksId = taskUser.map((tu) => tu.taskId)
+            let tasks: TaskWithUsers[] = []
+            if (tasksId.length !== 0) {
+                tasks = await this.tasksRepository.getTasksById(tasksId)
+            }
             return { tasks }
         } catch (error) {
             throw error

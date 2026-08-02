@@ -82,4 +82,11 @@ export class PrismaTasksRepository implements TasksRepository {
             select: { id: true }
         })
     }
+
+    async getTasksById(id: number[]) {
+        return await prisma.task.findMany({
+            where: { id: { in: id } },
+            include: taskWithUsersInclude
+        })
+    }
 }

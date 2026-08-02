@@ -3,10 +3,12 @@ import { usersRoutes } from './controllers/users/users_routes.js'
 import { projectsRoutes } from './controllers/projects/projects_routes.js'
 import { tasksRoutes } from './controllers/tasks/tasks_routes.js'
 import { authRoutes } from './controllers/users/auth_routes.js'
+import { reportsRoutes } from './controllers/reports/reports_routes.js'
 
 export async function appRoutes(app: FastifyInstance) {
     app.register(authRoutes, { prefix: '/auth' })
     app.register(usersRoutes, { prefix: '/users' })
     app.register(projectsRoutes, { prefix: '/projects' })
     app.register(tasksRoutes, { prefix: '/tasks' })
+    app.register(reportsRoutes, { prefix: '/reports' })
 }

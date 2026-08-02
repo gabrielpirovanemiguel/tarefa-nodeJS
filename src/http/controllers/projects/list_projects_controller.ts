@@ -7,7 +7,6 @@ export async function listProjects(
     reply: FastifyReply,
 ) {
     try {
-        console.log(2)
         const listProjects = makeListProjectsUseCase()
         const { projects } = await listProjects.execute()
 

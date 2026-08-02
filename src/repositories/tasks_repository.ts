@@ -1,4 +1,4 @@
-import type { PRIORITY, Prisma, Task, TASK_FIELDS } from "@/@types/prisma/client.js";
+import type { PRIORITY, Prisma, TASK_FIELDS } from "@/@types/prisma/client.js";
 
 export interface ListTaskQuery {
     completed?: boolean

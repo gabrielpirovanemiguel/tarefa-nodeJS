@@ -17,8 +17,8 @@ const listTaskQuerySchema = z.object({
 export async function listTasks(request: FastifyRequest, reply: FastifyReply) {
     try {
         const query = listTaskQuerySchema.parse(request.query)
-        const listTasksUseCase = makeListTasksUseCase()
-        const { tasks } = await listTasksUseCase.execute({ query })
+        const listTasks = makeListTasksUseCase()
+        const { tasks } = await listTasks.execute({ query })
 
 
         return reply.status(200).send(TaskPresenter.toHTTP(tasks))

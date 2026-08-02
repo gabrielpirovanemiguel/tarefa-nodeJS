@@ -14,8 +14,8 @@ export async function getProjectById(
         if (!z.uuid().safeParse(publicIdProject).success) {
             throw new ProjectNotFound()
         }
-        const getByIdUseCase = makeGetProjectByIdUseCase()
-        const { project } = await getByIdUseCase.execute({ publicIdProject })
+        const getById = makeGetProjectByIdUseCase()
+        const { project } = await getById.execute({ publicIdProject })
 
         return reply.status(200).send(ProjectPresenter.toHTTP(project))
     } catch (error) {

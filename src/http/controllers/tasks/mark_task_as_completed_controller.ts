@@ -17,8 +17,8 @@ export async function markTaskAsCompleted(
             throw new TaskNotFound()
         }
         const payLoadUser = request.user
-        const markTaskAsCompletedUseCase = makeMarkTaskAsCompletedUseCase()
-        const { task } = await markTaskAsCompletedUseCase.execute({ publicIdTask, payLoadUser })
+        const markTaskAsCompleted = makeMarkTaskAsCompletedUseCase()
+        const { task } = await markTaskAsCompleted.execute({ publicIdTask, payLoadUser })
 
         return reply.code(200).send(TaskPresenter.toHTTP(task))
     } catch (error) {

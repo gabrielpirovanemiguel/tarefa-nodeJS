@@ -11,8 +11,8 @@ export async function deleteProject(request: FastifyRequest, reply: FastifyReply
         if (!z.uuid().safeParse(publicIdProject).success) {
             throw new ProjectNotFound()
         }
-        const deleteProjectCase = makeDeleteProjectUseCase()
-        await deleteProjectCase.execute({ publicIdProject })
+        const deleteProject = makeDeleteProjectUseCase()
+        await deleteProject.execute({ publicIdProject })
 
         return reply.status(204).send()
     } catch (error) {

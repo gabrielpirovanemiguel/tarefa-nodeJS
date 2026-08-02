@@ -19,8 +19,8 @@ export async function updateProject(request: FastifyRequest, reply: FastifyReply
             throw new ProjectNotFound()
         }
         const { name, description, status } = updateProjectBodyScheme.parse(request.body)
-        const updateProjectCase = makeUpdateProjectUseCase()
-        const { project } = await updateProjectCase.execute({
+        const updateProject = makeUpdateProjectUseCase()
+        const { project } = await updateProject.execute({
             publicIdProject,
             name,
             description,

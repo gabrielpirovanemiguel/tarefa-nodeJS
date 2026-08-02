@@ -10,8 +10,8 @@ export async function getTasksInProject(
 ) {
     try {
         const { publicIdProject } = z.object({ publicIdProject: z.string() }).parse(request.params)
-        const getTasksInProjectUseCase = makeGetTasksInProjectUseCase()
-        const { tasks } = await getTasksInProjectUseCase.execute({ publicIdProject })
+        const getTasksInProject = makeGetTasksInProjectUseCase()
+        const { tasks } = await getTasksInProject.execute({ publicIdProject })
 
         return reply.status(200).send(TaskPresenter.toHTTP(tasks!))
     } catch (error) {

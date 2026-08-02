@@ -12,8 +12,8 @@ export async function deleteTaskUser(request: FastifyRequest, reply: FastifyRepl
             taskId: z.string(),
             userId: z.string(),
         }).parse(request.params)
-        const deleteTaskUserUseCase = makeDeleteTaskUserUseCase()
-        await deleteTaskUserUseCase.execute({ taskId, userId })
+        const deleteTaskUser = makeDeleteTaskUserUseCase()
+        await deleteTaskUser.execute({ taskId, userId })
         return reply.status(204).send()
     } catch (error) {
         if (error instanceof TaskNotFound || error instanceof UserNotFound || error instanceof TaskUserNotFound) {

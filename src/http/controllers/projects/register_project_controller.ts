@@ -20,8 +20,8 @@ export async function registerProject(
             request.body,
         )
 
-        const registerProjectUseCase = makeRegisterProjectUseCase()
-        const { project } = await registerProjectUseCase.execute({
+        const registerProject = makeRegisterProjectUseCase()
+        const { project } = await registerProject.execute({
             name,
             description,
             status,

@@ -13,9 +13,9 @@ export async function getTaskById(request: FastifyRequest, reply: FastifyReply) 
             throw new TaskNotFound()
         }
 
-        const getTaskUseCase = makeGetTaskByIdUseCase()
+        const getTask = makeGetTaskByIdUseCase()
 
-        const { task } = await getTaskUseCase.execute({ publicIdTask })
+        const { task } = await getTask.execute({ publicIdTask })
         return reply.status(200).send(TaskPresenter.toHTTP(task))
     } catch (error) {
         if (error instanceof TaskNotFound) {

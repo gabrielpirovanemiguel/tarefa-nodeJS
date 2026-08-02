@@ -14,8 +14,8 @@ export async function deleteTask(
         if (!z.uuid().safeParse(publicIdTask).success) {
             throw new TaskNotFound()
         }
-        const deleteTaskUseCase = makeDeleteTaskUseCase()
-        await deleteTaskUseCase.execute({ publicIdTask })
+        const deleteTask = makeDeleteTaskUseCase()
+        await deleteTask.execute({ publicIdTask })
 
         return reply.code(204).send()
     } catch (error) {

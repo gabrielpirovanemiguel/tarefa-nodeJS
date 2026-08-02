@@ -18,9 +18,9 @@ export async function registerTaskUser(
         const { userIds } = z.object({
             userIds: z.array(z.uuid({ error: 'Um dos ids de usuário informados é inválido.' })).min(1, { error: 'Informe pelo menos um usuário.' })
         }).parse(request.body)
-        const registerTaskUserUseCase = makeRegisterTaskUserUseCase()
+        const registerTaskUser = makeRegisterTaskUserUseCase()
         
-        const { task } = await registerTaskUserUseCase.execute({ publicIdTask, userIds })
+        const { task } = await registerTaskUser.execute({ publicIdTask, userIds })
         return reply.code(201).send(TaskPresenter.toHTTP(task))
     } catch (error) {
         if (error instanceof TaskNotFound) {

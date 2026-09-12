@@ -8,4 +8,3 @@ export default defineConfig({
   shims: true, // Adiciona polyfills para compatibilidade
   target: 'esnext', // Target JavaScript: versão mais recente
 })
-

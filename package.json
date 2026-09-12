@@ -12,8 +12,9 @@
     "start:dev": "tsx watch src/server.ts",
     "start:prod": "node build/server.js",
     "build": "tsup",
-    "format": "prettier --write \"src/**/*.ts\"",
-    "lint": "prettier --check \"src/**/*.ts\""
+    "lint": "biome check .",
+    "format": "biome format --write .",
+    "lint:fix": "biome check --write ."
   },
   "repository": {
     "type": "git",
@@ -38,6 +39,7 @@
     "zod": "4.4.3"
   },
   "devDependencies": {
+    "@biomejs/biome": "2.5.13",
     "@types/node": "26.1.1",
     "@types/pg": "8.20.0",
     "prettier": "3.9.6",

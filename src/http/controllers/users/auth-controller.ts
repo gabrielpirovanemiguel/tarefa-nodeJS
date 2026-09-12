@@ -1,0 +1,35 @@
+import type { FastifyReply, FastifyRequest } from 'fastify'
+import { z } from 'zod'
+import { UserPresenter } from '@/http/presenters/users-presenter.js'
+import { InvalidCredentialsError } from '@/use_cases/errors/invalid-credentials-error.js'
+import { makeAuthUserUseCase } from '@/use_cases/factories/users/make-auth-user.js'
+
+const authenticateSchema = z.object({
+  email: z.email().trim().min(1),
+  password: z.string().min(1),
+})
+
+export async function authenticate(
+  request: FastifyRequest,
+  reply: FastifyReply,
+) {
+  try {
+    const { email, password } = authenticateSchema.parse(request.body)
+
+    const authUserUseCase = makeAuthUserUseCase()
+    const { user } = await authUserUseCase.execute({ email, password })
+
+    const token = await reply.jwtSign(
+      { sub: user.publicId, role: user.role },
+      { expiresIn: '1d' },
+    )
+
+    return reply.status(200).send({ token, user: UserPresenter.toHTTP(user) })
+  } catch (error) {
+    if (error instanceof InvalidCredentialsError) {
+      return reply.status(401).send({ message: error.message })
+    }
+
+    throw error
+  }
+}

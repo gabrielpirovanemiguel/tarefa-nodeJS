@@ -32,5 +32,5 @@ app.setErrorHandler((error, _request, reply) => {
 
   return reply
     .status(500)
-    .send({ message: `Erro interno do servidor!${error.message}` })
+    .send({ message: `Erro interno do servidor! ${(error as Error).message}` })
 })

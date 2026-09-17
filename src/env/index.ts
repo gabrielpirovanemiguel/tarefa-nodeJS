@@ -13,6 +13,8 @@ const envSchema = z.object({
   JWT_SECRET: z.string(),
 
   HASH_SALT_ROUNDS: z.coerce.number().default(12),
+  SMTP_EMAIL: z.email(),
+  SMTP_PASSWORD: z.string(),
 })
 
 const _env = envSchema.safeParse(process.env)

@@ -1,15 +1,17 @@
-import type { FastifyReply, FastifyRequest } from "fastify"
-import { makeForgotPasswordUseCase } from "@/use_cases/factories/users/make-forget-password.js"
-import z from "zod"
-import { makeSendEmailUseCase } from "@/use_cases/factories/users/make-send-email.js"
-import { forgotPasswordTextTemplate } from "@/templates/forgot-password-text.js"
-import { forgotPasswordHtmlTemplate } from "@/templates/forgot-password-html.js"
-import { UserNotFoundByToken } from "@/use_cases/errors/user-not-found-by-toker.js"
+import type { FastifyReply, FastifyRequest } from 'fastify'
+import { makeForgotPasswordUseCase } from '@/use_cases/factories/users/make-forget-password.js'
+import z from 'zod'
+import { makeSendEmailUseCase } from '@/use_cases/factories/users/make-send-email.js'
+import { forgotPasswordTextTemplate } from '@/templates/forgot-password-text.js'
+import { forgotPasswordHtmlTemplate } from '@/templates/forgot-password-html.js'
+import { UserNotFoundByToken } from '@/use_cases/errors/user-not-found-by-toker.js'
 
-
-export async function forgotPassword(request: FastifyRequest, reply: FastifyReply) {
+export async function forgotPassword(
+  request: FastifyRequest,
+  reply: FastifyReply,
+) {
   try {
-    const { email } = z.object({email: z.email()}).parse(request.body)
+    const { email } = z.object({ email: z.email() }).parse(request.body)
 
     const forgotPasswordUseCase = makeForgotPasswordUseCase()
 
@@ -19,13 +21,17 @@ export async function forgotPassword(request: FastifyRequest, reply: FastifyRepl
 
     await sendEmailUseCase.execute({
       to: user.email,
-      subject: "Tentativa de recuperação de senha",
+      subject: 'Tentativa de recuperação de senha',
       message: forgotPasswordTextTemplate(user.name, token),
       html: forgotPasswordHtmlTemplate(user.name, token),
     })
 
-
-    return reply.status(200).send({ message: "Se o email existir, você receberá nele instruções para a recuperação." })
+    return reply
+      .status(200)
+      .send({
+        message:
+          'Se o email existir, você receberá nele instruções para a recuperação.',
+      })
   } catch (error) {
     if (error instanceof UserNotFoundByToken) {
       return reply.status(200).send({ message: error.message })

@@ -1,4 +1,4 @@
-import { env } from "@/env/index.js"
+import { env } from '@/env/index.js'
 
 export function forgotPasswordTextTemplate(userName: string, token: string) {
   const url = `${env.BASE_URL}/reset-password/${token}`

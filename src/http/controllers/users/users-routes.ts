@@ -8,6 +8,7 @@ import { getUserById } from './get-by-id-controller.js'
 import { getTasksWithUser } from './get-tasks-with-user-controller.js'
 import { listUsers } from './list-users-controller.js'
 import { updateUser } from './update-controller.js'
+import { forgotPassword } from './forget-password-controller.js'
 
 export async function usersRoutes(app: FastifyInstance) {
   app.get('', { onRequest: [verifyJwt] }, listUsers)
@@ -23,4 +24,5 @@ export async function usersRoutes(app: FastifyInstance) {
     { onRequest: [verifyJwt, verifyRole([USER_ROLE.admin])] },
     deleteUser,
   )
+  app.post('/forgot-password', forgotPassword)
 }

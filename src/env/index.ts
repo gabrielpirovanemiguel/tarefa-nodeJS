@@ -9,7 +9,7 @@ const envSchema = z.object({
   HOST: z.string().default('0.0.0.0'),
 
   DATABASE_URL: z.string(),
-
+  BASE_URL: z.url(),
   JWT_SECRET: z.string(),
 
   HASH_SALT_ROUNDS: z.coerce.number().default(12),

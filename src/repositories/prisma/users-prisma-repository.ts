@@ -11,6 +11,10 @@ export class PrismaUsersRepository implements UsersRepository {
     return await prisma.user.findFirst({ where: { email } })
   }
 
+  async findUserByToken(token: string) {
+    return await prisma.user.findFirst({ where: { token } })
+  }
+
   async listUsers() {
     return await prisma.user.findMany()
   }

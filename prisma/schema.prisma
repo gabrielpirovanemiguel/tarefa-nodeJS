@@ -51,17 +51,19 @@ model Project {
 }
 
 model User {
-  id           Int       @id @default(autoincrement())
-  publicId     String    @unique @default(uuid(7)) @map("public_id")
-  name         String 
-  email        String    @unique
-  passwordHash String    @map("password_hash")
-  role         USER_ROLE @default(user)
+  id              Int       @id @default(autoincrement())
+  publicId        String    @unique @default(uuid(7)) @map("public_id")
+  name            String 
+  email           String    @unique
+  passwordHash    String    @map("password_hash")
+  token           String?   @map("token")
+  tokenExpiresAt  DateTime? @map("token_expires_at")
+  role            USER_ROLE @default(user)
 
-  taskUser     TaskUser[]
+  taskUser        TaskUser[]
 
-  createdAt    DateTime  @default(now()) @map("created_at")
-  updatedAt    DateTime  @updatedAt @map("updated_at")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
 }
 
 model Task {

@@ -40,5 +40,3 @@ export async function sendEmail({
     throw error
   }
 }
-
-

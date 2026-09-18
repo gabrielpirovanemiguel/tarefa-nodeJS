@@ -1,7 +1,7 @@
 import { env } from '@/env/index.js'
 
 export function forgotPasswordTextTemplate(userName: string, token: string) {
-  const url = `${env.BASE_URL}/reset-password/${token}`
+  const url = `${env.BASE_URL}/users/reset-password/${token}`
   return `
 Olá, ${userName}!
 

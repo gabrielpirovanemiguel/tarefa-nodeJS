@@ -1,7 +1,7 @@
 import { env } from '@/env/index.js'
 
 export function forgotPasswordHtmlTemplate(userName: string, token: string) {
-  const url = `${env.BASE_URL}/reset-password/${token}`
+  const url = `${env.BASE_URL}/users/reset-password/${token}`
   return `
     <div style="font-family: Arial, sans-serif; color: #222;">
       <h2>Olá, ${userName}!</h2>

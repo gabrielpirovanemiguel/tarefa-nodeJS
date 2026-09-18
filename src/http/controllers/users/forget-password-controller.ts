@@ -26,12 +26,10 @@ export async function forgotPassword(
       html: forgotPasswordHtmlTemplate(user.name, token),
     })
 
-    return reply
-      .status(200)
-      .send({
-        message:
-          'Se o email existir, você receberá nele instruções para a recuperação.',
-      })
+    return reply.status(200).send({
+      message:
+        'Se o email existir, você receberá nele instruções para a recuperação.',
+    })
   } catch (error) {
     if (error instanceof UserNotFoundByToken) {
       return reply.status(200).send({ message: error.message })

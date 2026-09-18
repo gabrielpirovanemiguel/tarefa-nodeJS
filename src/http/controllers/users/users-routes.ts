@@ -9,6 +9,7 @@ import { getTasksWithUser } from './get-tasks-with-user-controller.js'
 import { listUsers } from './list-users-controller.js'
 import { updateUser } from './update-controller.js'
 import { forgotPassword } from './forget-password-controller.js'
+import { resetPassword } from './reset-password-controller.js'
 
 export async function usersRoutes(app: FastifyInstance) {
   app.get('', { onRequest: [verifyJwt] }, listUsers)
@@ -25,4 +26,5 @@ export async function usersRoutes(app: FastifyInstance) {
     deleteUser,
   )
   app.post('/forgot-password', forgotPassword)
+  app.post('/reset-password/:token', resetPassword)
 }

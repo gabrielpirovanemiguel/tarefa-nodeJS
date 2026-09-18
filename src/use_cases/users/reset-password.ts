@@ -25,11 +25,13 @@ export class ResetPasswordUseCase {
     if (
       !doesUserExists.tokenExpiresAt ||
       doesUserExists.tokenExpiresAt < new Date()
-    ) throw new InvalidTokenError()
+    )
+      throw new InvalidTokenError()
     const passwordHash = await hash(password, env.HASH_SALT_ROUNDS)
     const user = await this.userRepository.updateUser(doesUserExists.publicId, {
       passwordHash,
     })
+    await this.userRepository.updateUser(doesUserExists.publicId, {tokenExpiresAt: new Date()})
     return { user }
   }
 }

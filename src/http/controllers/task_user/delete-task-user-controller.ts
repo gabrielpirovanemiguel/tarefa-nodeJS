@@ -1,9 +1,9 @@
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import z from 'zod'
-import { TaskNotFound } from '@/use_cases/errors/task-not-found.js'
-import { TaskUserNotFound } from '@/use_cases/errors/task-user-not-found-error.js'
-import { UserNotFound } from '@/use_cases/errors/user-not-found.js'
-import { makeDeleteTaskUserUseCase } from '@/use_cases/factories/task_user/make-delete-task-user.js'
+import { TaskNotFound } from '@/use-cases/errors/task-not-found.js'
+import { TaskUserNotFound } from '@/use-cases/errors/task-user-not-found-error.js'
+import { UserNotFound } from '@/use-cases/errors/user-not-found.js'
+import { makeDeleteTaskUserUseCase } from '@/use-cases/factories/task_user/make-delete-task-user.js'
 
 export async function deleteTaskUser(
   request: FastifyRequest,

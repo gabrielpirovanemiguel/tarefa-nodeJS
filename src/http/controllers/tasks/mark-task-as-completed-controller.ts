@@ -1,9 +1,9 @@
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import z from 'zod'
 import { TaskPresenter } from '@/http/presenters/tasks-presenters.js'
-import { InvalidPermissions } from '@/use_cases/errors/invalid-permissions-error.js'
-import { TaskNotFound } from '@/use_cases/errors/task-not-found.js'
-import { makeMarkTaskAsCompletedUseCase } from '@/use_cases/factories/tasks/make-mark-task-as-completed.js'
+import { InvalidPermissions } from '@/use-cases/errors/invalid-permissions-error.js'
+import { TaskNotFound } from '@/use-cases/errors/task-not-found.js'
+import { makeMarkTaskAsCompletedUseCase } from '@/use-cases/factories/tasks/make-mark-task-as-completed.js'
 
 export async function markTaskAsCompleted(
   request: FastifyRequest,

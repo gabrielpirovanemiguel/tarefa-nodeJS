@@ -1,6 +1,6 @@
 import { UserPresenter } from '@/http/presenters/users-presenter.js'
-import { InvalidTokenError } from '@/use_cases/errors/invalid-token-error.js'
-import { makeResetPasswordUseCase } from '@/use_cases/factories/users/make-reset-password.js'
+import { InvalidTokenError } from '@/use-cases/errors/invalid-token-error.js'
+import { makeResetPasswordUseCase } from '@/use-cases/factories/users/make-reset-password.js'
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import z from 'zod'
 

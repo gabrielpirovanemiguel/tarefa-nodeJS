@@ -1,8 +1,8 @@
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import z from 'zod'
 import { ProjectPresenter } from '@/http/presenters/projects-presenters.js'
-import { ProjectNotFound } from '@/use_cases/errors/project-not-found.js'
-import { makeGetProjectByIdUseCase } from '@/use_cases/factories/projects/make-get-project-by-id.js'
+import { ProjectNotFound } from '@/use-cases/errors/project-not-found.js'
+import { makeGetProjectByIdUseCase } from '@/use-cases/factories/projects/make-get-project-by-id.js'
 
 export async function getProjectById(
   request: FastifyRequest,

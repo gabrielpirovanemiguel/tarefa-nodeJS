@@ -1,7 +1,7 @@
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import z from 'zod'
-import { UserNotFound } from '@/use_cases/errors/user-not-found.js'
-import { makeDeleteUserUseCase } from '@/use_cases/factories/users/male-delete-user.js'
+import { UserNotFound } from '@/use-cases/errors/user-not-found.js'
+import { makeDeleteUserUseCase } from '@/use-cases/factories/users/male-delete-user.js'
 
 export async function deleteUser(request: FastifyRequest, reply: FastifyReply) {
   try {

@@ -1,8 +1,8 @@
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 import { UserPresenter } from '@/http/presenters/users-presenter.js'
-import { InvalidCredentialsError } from '@/use_cases/errors/invalid-credentials-error.js'
-import { makeAuthUserUseCase } from '@/use_cases/factories/users/make-auth-user.js'
+import { InvalidCredentialsError } from '@/use-cases/errors/invalid-credentials-error.js'
+import { makeAuthUserUseCase } from '@/use-cases/factories/users/make-auth-user.js'
 
 const authenticateSchema = z.object({
   email: z.email().trim().min(1),

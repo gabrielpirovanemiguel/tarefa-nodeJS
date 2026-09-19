@@ -1,0 +1,8 @@
+import { PrismaTasksRepository } from '@/repositories/prisma/tasks-prisma-repository.js'
+import { ListTasksUseCase } from '@/use-cases/tasks/list-tasks.js'
+
+export function makeListTasksUseCase() {
+  const tasksRepository = new PrismaTasksRepository()
+  const listTasksUseCase = new ListTasksUseCase(tasksRepository)
+  return listTasksUseCase
+}

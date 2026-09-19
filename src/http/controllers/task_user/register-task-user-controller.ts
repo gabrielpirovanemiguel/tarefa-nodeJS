@@ -1,9 +1,9 @@
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import z from 'zod'
 import { TaskPresenter } from '@/http/presenters/tasks-presenters.js'
-import { TaskNotFound } from '@/use_cases/errors/task-not-found.js'
-import { UsersNotFound } from '@/use_cases/errors/users-not-found.js'
-import { makeRegisterTaskUserUseCase } from '@/use_cases/factories/task_user/make-register-task-user.js'
+import { TaskNotFound } from '@/use-cases/errors/task-not-found.js'
+import { UsersNotFound } from '@/use-cases/errors/users-not-found.js'
+import { makeRegisterTaskUserUseCase } from '@/use-cases/factories/task_user/make-register-task-user.js'
 
 export async function registerTaskUser(
   request: FastifyRequest,

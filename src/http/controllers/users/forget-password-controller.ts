@@ -1,10 +1,10 @@
 import type { FastifyReply, FastifyRequest } from 'fastify'
-import { makeForgotPasswordUseCase } from '@/use_cases/factories/users/make-forget-password.js'
+import { makeForgotPasswordUseCase } from '@/use-cases/factories/users/make-forget-password.js'
 import z from 'zod'
-import { makeSendEmailUseCase } from '@/use_cases/factories/users/make-send-email.js'
-import { forgotPasswordTextTemplate } from '@/templates/forgot-password-text.js'
-import { forgotPasswordHtmlTemplate } from '@/templates/forgot-password-html.js'
-import { UserNotFoundByToken } from '@/use_cases/errors/user-not-found-by-toker.js'
+import { makeSendEmailUseCase } from '@/use-cases/factories/users/make-send-email.js'
+import { forgotPasswordTextTemplate } from '@/templates/reset-password/forgot-password-text.js'
+import { forgotPasswordHtmlTemplate } from '@/templates/reset-password/forgot-password-html.js'
+import { UserNotFoundByToken } from '@/use-cases/errors/user-not-found-by-toker.js'
 
 export async function forgotPassword(
   request: FastifyRequest,

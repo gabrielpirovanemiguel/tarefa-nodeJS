@@ -2,8 +2,8 @@ import type { FastifyReply, FastifyRequest } from 'fastify'
 import z from 'zod'
 import { PRIORITY } from '@/@types/prisma/enums.js'
 import { TaskPresenter } from '@/http/presenters/tasks-presenters.js'
-import { ProjectNotFound } from '@/use_cases/errors/project-not-found.js'
-import { makeRegisterTaskUseCase } from '@/use_cases/factories/tasks/make-register-task.js'
+import { ProjectNotFound } from '@/use-cases/errors/project-not-found.js'
+import { makeRegisterTaskUseCase } from '@/use-cases/factories/tasks/make-register-task.js'
 
 const registerTaskBodySchema = z.object({
   title: z

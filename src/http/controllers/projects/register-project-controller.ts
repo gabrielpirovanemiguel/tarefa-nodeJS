@@ -2,8 +2,8 @@ import type { FastifyReply, FastifyRequest } from 'fastify'
 import z from 'zod'
 import { STATUS } from '@/@types/prisma/enums.js'
 import { ProjectPresenter } from '@/http/presenters/projects-presenters.js'
-import { statusSchemaThrowError } from '@/use_cases/errors/invalid-status.js'
-import { makeRegisterProjectUseCase } from '@/use_cases/factories/projects/make-register-project.js'
+import { statusSchemaThrowError } from '@/use-cases/errors/invalid-status.js'
+import { makeRegisterProjectUseCase } from '@/use-cases/factories/projects/make-register-project.js'
 
 const registerProjectBodySchema = z.object({
   name: z.string().min(1, { error: 'O projeto deve ter um nome.' }).max(50),

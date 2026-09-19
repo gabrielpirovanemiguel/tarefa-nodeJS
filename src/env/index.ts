@@ -15,6 +15,7 @@ const envSchema = z.object({
   HASH_SALT_ROUNDS: z.coerce.number().default(12),
   SMTP_EMAIL: z.email(),
   SMTP_PASSWORD: z.string(),
+  CRON_SCHEDULE: z.string(),
 })
 
 const _env = envSchema.safeParse(process.env)

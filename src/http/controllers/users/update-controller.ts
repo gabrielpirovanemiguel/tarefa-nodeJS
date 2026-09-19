@@ -1,8 +1,8 @@
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import z from 'zod'
 import { UserPresenter } from '@/http/presenters/users-presenter.js'
-import { UserNotFound } from '@/use_cases/errors/user-not-found.js'
-import { makeUpdateUserUseCase } from '@/use_cases/factories/users/make-update-user.js'
+import { UserNotFound } from '@/use-cases/errors/user-not-found.js'
+import { makeUpdateUserUseCase } from '@/use-cases/factories/users/make-update-user.js'
 
 const updateUserBodyScheme = z.object({
   name: z.string().trim().min(1).max(100).optional(),

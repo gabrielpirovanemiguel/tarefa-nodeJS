@@ -1,5 +1,5 @@
 import type { FastifyReply, FastifyRequest } from 'fastify'
-import { makeReportUseCase } from '@/use_cases/factories/projects/make-make-report.js'
+import { makeReportUseCase } from '@/use-cases/factories/projects/make-make-report.js'
 
 export async function makeReportProjects(
   _request: FastifyRequest,

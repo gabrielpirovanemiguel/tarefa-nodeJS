@@ -2,7 +2,7 @@ import type { FastifyReply, FastifyRequest } from 'fastify'
 import z from 'zod'
 import { PRIORITY, TASK_FIELDS } from '@/@types/prisma/enums.js'
 import { TaskPresenter } from '@/http/presenters/tasks-presenters.js'
-import { makeListTasksUseCase } from '@/use_cases/factories/tasks/make-list-tasks.js'
+import { makeListTasksUseCase } from '@/use-cases/factories/tasks/make-list-tasks.js'
 
 const listTaskQuerySchema = z.object({
   completed: z

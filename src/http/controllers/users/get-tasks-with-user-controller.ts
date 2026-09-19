@@ -1,8 +1,8 @@
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import z from 'zod'
 import { TaskPresenter } from '@/http/presenters/tasks-presenters.js'
-import { UserNotFound } from '@/use_cases/errors/user-not-found.js'
-import { makeGetTasksWithUserUseCase } from '@/use_cases/factories/users/make-get-tasks-with-user.js'
+import { UserNotFound } from '@/use-cases/errors/user-not-found.js'
+import { makeGetTasksWithUserUseCase } from '@/use-cases/factories/users/make-get-tasks-with-user.js'
 
 export async function getTasksWithUser(
   request: FastifyRequest,

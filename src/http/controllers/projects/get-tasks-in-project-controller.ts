@@ -1,8 +1,8 @@
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import z from 'zod'
 import { TaskPresenter } from '@/http/presenters/tasks-presenters.js'
-import { ProjectNotFound } from '@/use_cases/errors/project-not-found.js'
-import { makeGetTasksInProjectUseCase } from '@/use_cases/factories/projects/make-get-tasks-in-project.js'
+import { ProjectNotFound } from '@/use-cases/errors/project-not-found.js'
+import { makeGetTasksInProjectUseCase } from '@/use-cases/factories/projects/make-get-tasks-in-project.js'
 
 export async function getTasksInProject(
   request: FastifyRequest,

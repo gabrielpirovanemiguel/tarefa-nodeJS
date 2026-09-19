@@ -1,8 +1,8 @@
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import z from 'zod'
 import { UserPresenter } from '@/http/presenters/users-presenter.js'
-import { UserNotFound } from '@/use_cases/errors/user-not-found.js'
-import { makeGetUserByIdUseCase } from '@/use_cases/factories/users/make-get-by-id.js'
+import { UserNotFound } from '@/use-cases/errors/user-not-found.js'
+import { makeGetUserByIdUseCase } from '@/use-cases/factories/users/make-get-by-id.js'
 
 export async function getUserById(
   request: FastifyRequest,

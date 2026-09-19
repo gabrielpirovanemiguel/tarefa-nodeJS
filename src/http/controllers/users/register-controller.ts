@@ -2,8 +2,8 @@ import type { FastifyReply, FastifyRequest } from 'fastify'
 import z from 'zod'
 import { USER_ROLE } from '@/@types/prisma/client.js'
 import { UserPresenter } from '@/http/presenters/users-presenter.js'
-import { EmailAlreadyInUse } from '@/use_cases/errors/email-already-in-use-error.js'
-import { makeRegisterUserUseCase } from '@/use_cases/factories/users/make-register-user.js'
+import { EmailAlreadyInUse } from '@/use-cases/errors/email-already-in-use-error.js'
+import { makeRegisterUserUseCase } from '@/use-cases/factories/users/make-register-user.js'
 
 const registerBodySchema = z.object({
   name: z.string().trim().min(1).max(100),

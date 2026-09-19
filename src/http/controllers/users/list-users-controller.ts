@@ -1,6 +1,6 @@
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import { UserPresenter } from '@/http/presenters/users-presenter.js'
-import { makeListUsersUseCase } from '@/use_cases/factories/users/make-list-users.js'
+import { makeListUsersUseCase } from '@/use-cases/factories/users/make-list-users.js'
 
 export async function listUsers(_request: FastifyRequest, reply: FastifyReply) {
   const listUsers = makeListUsersUseCase()

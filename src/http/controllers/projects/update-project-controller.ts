@@ -1,9 +1,9 @@
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import z from 'zod'
 import { ProjectPresenter } from '@/http/presenters/projects-presenters.js'
-import { statusSchemaThrowError } from '@/use_cases/errors/invalid-status.js'
-import { ProjectNotFound } from '@/use_cases/errors/project-not-found.js'
-import { makeUpdateProjectUseCase } from '@/use_cases/factories/projects/make-update-project.js'
+import { statusSchemaThrowError } from '@/use-cases/errors/invalid-status.js'
+import { ProjectNotFound } from '@/use-cases/errors/project-not-found.js'
+import { makeUpdateProjectUseCase } from '@/use-cases/factories/projects/make-update-project.js'
 
 const updateProjectBodyScheme = z.object({
   name: z.string().trim().min(1).max(100).optional(),

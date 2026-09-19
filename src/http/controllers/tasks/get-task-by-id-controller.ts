@@ -1,8 +1,8 @@
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import z from 'zod'
 import { TaskPresenter } from '@/http/presenters/tasks-presenters.js'
-import { TaskNotFound } from '@/use_cases/errors/task-not-found.js'
-import { makeGetTaskByIdUseCase } from '@/use_cases/factories/tasks/make-get-task-by-id.js'
+import { TaskNotFound } from '@/use-cases/errors/task-not-found.js'
+import { makeGetTaskByIdUseCase } from '@/use-cases/factories/tasks/make-get-task-by-id.js'
 
 export async function getTaskById(
   request: FastifyRequest,

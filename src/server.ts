@@ -4,7 +4,7 @@ import cron from 'node-cron'
 import { makeSendEmailUsersUseCase } from './use-cases/factories/cron-jobs/make-send-email-users.js'
 
 try {
-  cron.schedule("* * * * *", () => {
+  cron.schedule(env.CRON_SCHEDULE, () => {
     const sendEmailUseCase = makeSendEmailUsersUseCase()
     sendEmailUseCase.execute()
   })

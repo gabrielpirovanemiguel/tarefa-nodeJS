@@ -1,6 +1,6 @@
 import type { FastifyReply, FastifyRequest } from 'fastify'
-import { makeForgotPasswordUseCase } from '@/use_cases/factories/users/make-forget-password.js'
 import z from 'zod'
+import { makeForgotPasswordUseCase } from '@/use_cases/factories/users/make-forget-password.js'
 import { makeSendEmailUseCase } from '@/use_cases/factories/users/make-send-email.js'
 import { forgotPasswordTextTemplate } from '@/templates/forgot-password-text.js'
 import { forgotPasswordHtmlTemplate } from '@/templates/forgot-password-html.js'

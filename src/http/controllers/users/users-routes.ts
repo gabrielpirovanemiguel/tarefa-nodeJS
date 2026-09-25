@@ -4,12 +4,12 @@ import { verifyJwt } from '@/http/middlewares/verify-jwt.js'
 import { verifyRole } from '@/http/middlewares/verify-role.js'
 import { verifyUserIdOrRole } from '@/http/middlewares/verify-user-id-or-role.js'
 import { deleteUser } from './delete-users.js'
+import { forgotPassword } from './forget-password-controller.js'
 import { getUserById } from './get-by-id-controller.js'
 import { getTasksWithUser } from './get-tasks-with-user-controller.js'
 import { listUsers } from './list-users-controller.js'
-import { updateUser } from './update-controller.js'
-import { forgotPassword } from './forget-password-controller.js'
 import { resetPassword } from './reset-password-controller.js'
+import { updateUser } from './update-controller.js'
 
 export async function usersRoutes(app: FastifyInstance) {
   app.get('', { onRequest: [verifyJwt] }, listUsers)

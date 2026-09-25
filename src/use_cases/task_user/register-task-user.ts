@@ -13,7 +13,7 @@ interface RegisterTaskUserUseCaseRequest {
   userIds: string[]
 }
 
-type RegisterTaskUserUseCaseResponse = {
+interface RegisterTaskUserUseCaseResponse {
   task: TaskWithUsers
 }
 

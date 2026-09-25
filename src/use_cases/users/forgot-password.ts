@@ -1,7 +1,7 @@
+import { randomBytes } from 'node:crypto'
 import type { User } from '@/@types/prisma/client.js'
 import type { UsersRepository } from '@/repositories/users-repository.js'
 import { UserNotFound } from '../errors/user-not-found.js'
-import { randomBytes } from 'node:crypto'
 
 interface ForgotPasswordUseCaseRequest {
   email: string

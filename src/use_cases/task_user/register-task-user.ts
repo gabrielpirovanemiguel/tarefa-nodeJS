@@ -13,7 +13,7 @@ interface RegisterTaskUserUseCaseRequest {
   userIds: string[]
 }
 
-interface RegisterTaskUserUseCaseResponse  {
+interface RegisterTaskUserUseCaseResponse {
   task: TaskWithUsers
 }
 
@@ -37,6 +37,6 @@ export class RegisterTaskUserUseCase {
     await this.taskUserRepository.createTaskUser(idTask.id, internalIds)
 
     const task = await this.tasksRepository.getTaskByPublicId(publicIdTask)
-    return {task: task!}
+    return { task: task! }
   }
 }

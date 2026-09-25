@@ -1,5 +1,5 @@
-import { sendEmail } from '@/utils/send-email.js'
 import type { Attachment } from 'nodemailer'
+import { sendEmail } from '@/utils/send-email.js'
 
 interface SendEmailUseCaseRequest {
   to: string

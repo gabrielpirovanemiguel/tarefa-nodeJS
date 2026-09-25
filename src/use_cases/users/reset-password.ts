@@ -1,9 +1,9 @@
-import type { User } from '@/@types/prisma/client.js'
-import type { UsersRepository } from '@/repositories/users-repository.js'
-import { UserNotFoundByToken } from '../errors/user-not-found-by-toker.js'
-import { env } from '@/env/index.js'
 import { hash } from 'bcryptjs'
+import type { User } from '@/@types/prisma/client.js'
+import { env } from '@/env/index.js'
+import type { UsersRepository } from '@/repositories/users-repository.js'
 import { InvalidTokenError } from '../errors/invalid-token-error.js'
+import { UserNotFoundByToken } from '../errors/user-not-found-by-toker.js'
 
 interface ResetPasswordUseCaseRequest {
   token: string
@@ -31,7 +31,9 @@ export class ResetPasswordUseCase {
     const user = await this.userRepository.updateUser(doesUserExists.publicId, {
       passwordHash,
     })
-    await this.userRepository.updateUser(doesUserExists.publicId, {tokenExpiresAt: new Date()})
+    await this.userRepository.updateUser(doesUserExists.publicId, {
+      tokenExpiresAt: new Date(),
+    })
     return { user }
   }
 }

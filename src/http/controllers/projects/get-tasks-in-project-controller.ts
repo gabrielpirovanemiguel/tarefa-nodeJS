@@ -15,7 +15,7 @@ export async function getTasksInProject(
     const getTasksInProject = makeGetTasksInProjectUseCase()
     const { tasks } = await getTasksInProject.execute({ publicIdProject })
 
-    return reply.status(200).send(TaskPresenter.toHTTP(tasks!))
+    return reply.status(200).send(TaskPresenter.toHTTP(tasks))
   } catch (error) {
     if (error instanceof ProjectNotFound) {
       return reply.status(404).send({ message: error.message })

@@ -1,6 +1,6 @@
-import { env } from '../env/index.js'
 import nodemailer from 'nodemailer'
 import type Mail from 'nodemailer/lib/mailer'
+import { env } from '../env/index.js'
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',

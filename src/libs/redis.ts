@@ -1,8 +1,8 @@
-import { env } from "@/env/index.js";
-import {Redis} from "ioredis";
+import { Redis } from 'ioredis'
+import { env } from '@/env/index.js'
 
 export const redis = new Redis({
-    host: env.REDIS_HOST, 
-    port: env.REDIS_PORT,
-    password: env.REDIS_PASSWORD
+  host: env.REDIS_HOST,
+  port: env.REDIS_PORT,
+  password: env.REDIS_PASSWORD,
 })

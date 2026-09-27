@@ -1,3 +1,4 @@
+import type { CachedTasksRepository } from '@/repositories/redis/cached-tasks-repository.js'
 import type {
   ListTaskQuery,
   TasksRepository,
@@ -13,11 +14,11 @@ interface ListTasksUseCaseResponse {
 }
 
 export class ListTasksUseCase {
-  constructor(private tasksRepository: TasksRepository) {}
+  constructor(private tasksRepository: CachedTasksRepository) {}
   async execute({
     query,
   }: ListTasksUseCaseRequest): Promise<ListTasksUseCaseResponse> {
-    const tasks = await this.tasksRepository.listTasks(query)
+    const tasks = await this.tasksRepository.list(query)
     return { tasks }
   }
 }

@@ -16,13 +16,10 @@ export async function authenticate(
   try {
     const { email, password } = authenticateSchema.parse(request.body)
 
-    const authUserUseCase = makeAuthUserUseCase()
-    const { user } = await authUserUseCase.execute({ email, password })
-
-    const token = await reply.jwtSign(
-      { sub: user.publicId, role: user.role },
-      { expiresIn: '1d' },
-    )
+    const authUserUseCase = makeAuthUserUseCase({
+      sign: (payload) => reply.jwtSign(payload, { expiresIn: '1d' }),
+    })
+    const { user, token } = await authUserUseCase.execute({ email, password })
 
     return reply.status(200).send({ token, user: UserPresenter.toHTTP(user) })
   } catch (error) {
